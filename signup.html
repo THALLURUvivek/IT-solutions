@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up — Nexora</title>
+    <meta name="description" content="Create a Nexora account to collaborate on projects, track milestones and manage billing.">
+    <meta name="theme-color" content="#0a0e27">
+    <link rel="icon" href="images/image.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+    <!-- ================= PRELOADER (shared across pages) ================= -->
+    <div id="preloader">
+        <div class="loader">
+            <div class="loader-logo"><img src="images/image.png" alt="Nexora"></div>
+            <div class="loader-bar"><span></span></div>
+        </div>
+    </div>
+
+    <!-- ================= NAVBAR (shared across pages) ================= -->
+    <nav id="mainNav" class="navbar navbar-expand-lg fixed-top">
+        <div class="container">
+            <a class="navbar-brand" href="index.html">
+                <img src="images/image.png" alt="Nexora" class="brand-logo">
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#navOffcanvas" aria-controls="navOffcanvas" aria-label="Toggle navigation">
+                <span class="toggler-icon"></span>
+                <span class="toggler-icon"></span>
+                <span class="toggler-icon"></span>
+            </button>
+            <div class="offcanvas offcanvas-end" tabindex="-1" id="navOffcanvas">
+                <div class="offcanvas-header">
+                    <a class="navbar-brand" href="index.html">
+                        <img src="images/image.png" alt="Nexora" class="brand-logo">
+                    </a>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+                </div>
+                <div class="offcanvas-body">
+                    <ul class="navbar-nav mx-auto align-items-lg-center gap-lg-3">
+                        <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+                        <li class="nav-item"><a class="nav-link" href="about.html">About</a></li>
+                        <li class="nav-item"><a class="nav-link" href="services.html">Services</a></li>
+                        <li class="nav-item"><a class="nav-link" href="work.html">Work</a></li>
+                        <li class="nav-item"><a class="nav-link" href="process.html">Process</a></li>
+                        <li class="nav-item"><a class="nav-link" href="pricing.html">Pricing</a></li>
+                        <li class="nav-item"><a class="nav-link" href="blog.html">Blog</a></li>
+                        <li class="nav-item"><a class="nav-link" href="contact.html">Contact</a></li>
+                    </ul>
+                    <div class="d-flex align-items-center gap-3 mt-3 mt-lg-0">
+                        <a href="signin.html" class="nav-link px-2 text-nowrap">Sign In</a>
+                        <a href="signup.html" class="btn btn-gradient btn-sm px-4 py-2">Get Started</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <main>
+
+    <!-- ============ PAGE BANNER ============ -->
+    <section class="page-banner auth-banner">
+        <div class="page-banner-bg" aria-hidden="true">
+            <div class="orb orb-1"></div>
+            <div class="orb orb-2"></div>
+            <div class="grid-overlay"></div>
+        </div>
+        <div class="container page-banner-content">
+            <span class="page-badge"><i class="bi bi-person-plus"></i> Create Account</span>
+            <h1>Start Building With <span class="gradient-text">Nexora</span></h1>
+            <p class="page-sub">Join 500+ businesses and get a dedicated workspace with project tracking, billing and 24/7 support.</p>
+            <nav class="breadcrumb-nav" aria-label="breadcrumb">
+                <a href="index.html">Home</a>
+                <i class="bi bi-chevron-right"></i>
+                <span>Sign Up</span>
+            </nav>
+        </div>
+    </section>
+
+    <!-- ============ SIGN UP ============ -->
+    <section class="auth section-pad">
+        <div class="container">
+            <div class="auth-card">
+                <div class="row g-0">
+                    <div class="col-lg-5 auth-side d-none d-lg-flex">
+                        <div class="auth-side-inner">
+                            <div class="auth-side-logo">
+                                <img src="images/image.png" alt="Nexora" class="brand-logo">
+                            </div>
+                            <span class="auth-side-tag"><i class="bi bi-stars"></i> What You Get</span>
+                            <h3>Your journey starts with a free account.</h3>
+                            <p class="auth-side-text">No credit card required. Set up in under two minutes and get instant access to your project workspace.</p>
+                            <ul class="auth-benefits">
+                                <li><i class="bi bi-check-circle-fill"></i> Free discovery call &amp; project health check</li>
+                                <li><i class="bi bi-check-circle-fill"></i> Live milestone tracking &amp; reporting</li>
+                                <li><i class="bi bi-check-circle-fill"></i> Instant quotes on new features</li>
+                                <li><i class="bi bi-check-circle-fill"></i> 100% secure, GDPR-compliant storage</li>
+                            </ul>
+                            <div class="auth-quote">
+                                <i class="bi bi-quote"></i>
+                                <p>"We signed up in the morning and had our first sprint planned by the afternoon. Incredible onboarding."</p>
+                                <div class="auth-quote-author">
+                                    <img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?q=80&w=120&auto=format&fit=crop&crop=faces" alt="Emma Wilson">
+                                    <div>
+                                        <strong>Emma Wilson</strong>
+                                        <span>COO, ShopVerse</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-7">
+                        <div class="auth-form-wrap">
+                            <span class="auth-icon"><i class="bi bi-person-plus"></i></span>
+                            <h3>Create Account</h3>
+                            <p class="auth-sub">Fill in your details to get started — it takes less than a minute.</p>
+                            <form id="signupForm" novalidate>
+                                <div class="row g-3 mb-3">
+                                    <div class="col-md-6">
+                                        <label class="form-label" for="signupName">Full Name *</label>
+                                        <input type="text" class="form-control" id="signupName" placeholder="John Doe" autocomplete="name" required>
+                                        <div class="invalid-feedback">Please enter your full name.</div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label class="form-label" for="signupCompany">Company (optional)</label>
+                                        <input type="text" class="form-control" id="signupCompany" placeholder="Acme Inc." autocomplete="organization">
+                                    </div>
+                                </div>
+                                <div class="mb-3">
+                                    <label class="form-label" for="signupEmail">Email Address *</label>
+                                    <input type="email" class="form-control" id="signupEmail" placeholder="you@company.com" autocomplete="email" required>
+                                    <div class="invalid-feedback">Please enter a valid email address.</div>
+                                </div>
+                                <div class="row g-3 mb-3">
+                                    <div class="col-md-6">
+                                        <label class="form-label" for="signupPassword">Password *</label>
+                                        <div class="password-field">
+                                            <input type="password" class="form-control" id="signupPassword" placeholder="Min. 8 characters" autocomplete="new-password" required>
+                                            <button type="button" class="password-toggle" aria-label="Show password" data-target="signupPassword"><i class="bi bi-eye-slash"></i></button>
+                                        </div>
+                                        <div class="invalid-feedback">Password must be at least 8 characters.</div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label class="form-label" for="signupConfirm">Confirm Password *</label>
+                                        <div class="password-field">
+                                            <input type="password" class="form-control" id="signupConfirm" placeholder="Repeat password" autocomplete="new-password" required>
+                                            <button type="button" class="password-toggle" aria-label="Show password" data-target="signupConfirm"><i class="bi bi-eye-slash"></i></button>
+                                        </div>
+                                        <div class="invalid-feedback">Passwords do not match.</div>
+                                    </div>
+                                </div>
+                                <div class="mb-3">
+                                    <label class="form-label">I am a *</label>
+                                    <div class="role-grid" id="signupRoleGrid">
+                                        <label class="role-card selected">
+                                            <input type="radio" name="signupRole" value="client" checked>
+                                            <i class="bi bi-person"></i>
+                                            <span class="role-name">Client</span>
+                                            <small>I need a product built</small>
+                                        </label>
+                                        <label class="role-card">
+                                            <input type="radio" name="signupRole" value="admin">
+                                            <i class="bi bi-shield-check"></i>
+                                            <span class="role-name">Admin</span>
+                                            <small>I manage the company</small>
+                                        </label>
+                                        <label class="role-card">
+                                            <input type="radio" name="signupRole" value="staff">
+                                            <i class="bi bi-headset"></i>
+                                            <span class="role-name">Staff</span>
+                                            <small>I work at Nexora</small>
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="form-check auth-check mb-4">
+                                    <input class="form-check-input" type="checkbox" id="termsCheck" required>
+                                    <label class="form-check-label" for="termsCheck">I agree to the <a href="#">Terms of Service</a> and <a href="#">Privacy Policy</a>.</label>
+                                    <div class="invalid-feedback">Please accept the terms to continue.</div>
+                                </div>
+                                <button type="submit" class="btn btn-gradient btn-lg w-100">Create Account <i class="bi bi-arrow-right ms-1"></i></button>
+                            </form>
+                            <div class="auth-divider"><span>Or sign up with</span></div>
+                            <div class="auth-social">
+                                <a href="404.html" class="auth-social-btn"><i class="bi bi-google"></i> Google</a>
+                                <a href="404.html" class="auth-social-btn"><i class="bi bi-github"></i> GitHub</a>
+                                <a href="404.html" class="auth-social-btn"><i class="bi bi-linkedin"></i> LinkedIn</a>
+                            </div>
+                            <div class="auth-switch">
+                                <span>Already have an account?</span>
+                                <a href="signin.html" class="btn btn-outline-gradient w-100">Sign In to Continue <i class="bi bi-box-arrow-in-right ms-1"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    </main>
+
+    <!-- ================= FOOTER (shared across pages) ================= -->
+    <footer class="footer">
+        <div class="container">
+            <div class="row g-5">
+                <div class="col-lg-4">
+                    <a class="navbar-brand mb-3" href="index.html">
+                        <img src="images/image.png" alt="Nexora" class="brand-logo">
+                    </a>
+                    <p class="footer-text">We design and engineer premium digital products that help ambitious companies grow faster, smarter and more securely.</p>
+                    <div class="footer-social">
+                        <a href="404.html"><i class="bi bi-facebook"></i></a>
+                        <a href="404.html"><i class="bi bi-twitter-x"></i></a>
+                        <a href="404.html"><i class="bi bi-linkedin"></i></a>
+                        <a href="404.html"><i class="bi bi-github"></i></a>
+                        <a href="404.html"><i class="bi bi-dribbble"></i></a>
+                    </div>
+                </div>
+                <div class="col-6 col-lg-2">
+                    <h6 class="footer-title">Company</h6>
+                    <ul class="footer-links">
+                        <li><a href="about.html">About Us</a></li>
+                        <li><a href="work.html">Case Studies</a></li>
+                        <li><a href="contact.html">Careers</a></li>
+                        <li><a href="blog.html">Blog</a></li>
+                    </ul>
+                </div>
+                <div class="col-6 col-lg-2">
+                    <h6 class="footer-title">Services</h6>
+                    <ul class="footer-links">
+                        <li><a href="services.html">Web Development</a></li>
+                        <li><a href="services.html">Mobile Apps</a></li>
+                        <li><a href="services.html">Cloud Solutions</a></li>
+                        <li><a href="services.html">AI &amp; ML</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-4">
+                    <h6 class="footer-title">Newsletter</h6>
+                    <p class="footer-text">Monthly insights on product, engineering and growth. No spam.</p>
+                    <form class="newsletter-form" id="newsletterForm">
+                        <input type="email" class="form-control" placeholder="Enter your email" required aria-label="Email">
+                        <button type="submit" class="btn btn-gradient"><i class="bi bi-send-fill"></i></button>
+                    </form>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 Nexora Technologies. All rights reserved.</p>
+                <div>
+                    <a href="#">Privacy Policy</a>
+                    <a href="#">Terms of Service</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Back to top -->
+    <button id="backToTop" class="back-to-top" aria-label="Back to top"><i class="bi bi-arrow-up"></i></button>
+
+    <!-- Toast -->
+    <div class="toast-container position-fixed bottom-0 end-0 p-3">
+        <div id="formToast" class="toast align-items-center text-bg-success border-0" role="alert" aria-live="assertive" aria-atomic="true">
+            <div class="d-flex">
+                <div class="toast-body"><i class="bi bi-check-circle-fill me-2"></i>Message sent! We'll be in touch within 24 hours.</div>
+                <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- GSAP + ScrollTrigger -->
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
+    <!-- Custom JS -->
+    <script src="js/main.js"></script>
+</body>
+</html>

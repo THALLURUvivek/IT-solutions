@@ -34,11 +34,18 @@
         if (!preloader) return;
         if (!HAS_GSAP || reducedMotion) { hidePreloader(); return; }
         const tl = gsap.timeline();
+        tl.to('.loader-logo', {
+            scale: 1.06,
+            rotate: 1,
+            ease: 'power2.inOut',
+            duration: 0.5
+        });
         tl.to(preloader, {
-            y: '-100%',
-            ease: 'power4.inOut',
-            duration: 0.9,
-            delay: 1.15,
+            opacity: 0,
+            scale: 1.04,
+            ease: 'power2.inOut',
+            duration: 0.7,
+            delay: 0.85,
             onComplete: hidePreloader
         });
     });
@@ -354,6 +361,17 @@
                 });
             });
         });
+
+        /* ----- 4s. Service spotlight (cursor glow follows mouse) ----- */
+        mm.add('(hover: hover) and (pointer: fine)', () => {
+            $$('.service-card').forEach(card => {
+                card.addEventListener('mousemove', e => {
+                    const r = card.getBoundingClientRect();
+                    card.style.setProperty('--mx', (e.clientX - r.left) + 'px');
+                    card.style.setProperty('--my', (e.clientY - r.top) + 'px');
+                });
+            });
+        });
     }
 
     /* ================================================================
@@ -499,7 +517,7 @@
             inputEl.value = '';
             showToast('<i class="bi bi-envelope-check-fill me-2"></i>Subscribed! Check your inbox for a welcome email.');
         });
-        ['input', 'change'].forEach(evt => {
+['input', 'change'].forEach(evt => {
             newsletter.addEventListener(evt, () => {
                 if (inputEl) inputEl.classList.remove('is-invalid');
             });
@@ -507,7 +525,145 @@
     }
 
     /* ================================================================
-       7. FONTS / IMAGES — refresh ScrollTrigger measurements
+        7. AUTH FORMS (sign in / sign up)
+       ================================================================ */
+
+    /* Password show/hide toggle */
+    $$('.password-toggle').forEach(btn => {
+        btn.addEventListener('click', () => {
+            const targetId = btn.getAttribute('data-target');
+            if (!targetId) return;
+            const input = document.getElementById(targetId);
+            if (!input) return;
+            const reveal = input.type === 'password';
+            input.type = reveal ? 'text' : 'password';
+            const icon = btn.querySelector('i');
+            if (icon) icon.className = reveal ? 'bi bi-eye-fill' : 'bi bi-eye-slash';
+            btn.setAttribute('aria-label', reveal ? 'Hide password' : 'Show password');
+        });
+    });
+
+    /* Clear validation state as the user types */
+    function prepareAuthInputs(form) {
+        ['input', 'change'].forEach(evt => {
+            form.addEventListener(evt, e => {
+                if (e.target.matches('.form-control, .form-check-input')) {
+                    e.target.classList.remove('is-invalid');
+                    e.target.closest('.auth-check') && e.target.closest('.auth-check').classList.remove('invalid');
+                }
+            });
+        });
+    }
+
+    function simulateAuth(form, btn, onDone) {
+        const original = btn.innerHTML;
+        btn.disabled = true;
+        btn.innerHTML = '<span class="spinner-border spinner-border-sm me-2"></span>Processing...';
+        setTimeout(() => {
+            btn.disabled = false;
+            btn.innerHTML = original;
+            form.reset();
+            if (onDone) onDone();
+        }, 1400);
+    }
+
+    /* Persist the demo session so dashboard pages can admit the user. */
+    function saveSession(email, name) {
+        try {
+            localStorage.setItem('nexora_user', JSON.stringify({ email: email || '', name: name || '', ts: Date.now() }));
+        } catch (e) { /* storage unavailable (private browsing / file://) */ }
+    }
+
+    function goToDashboard() {
+        setTimeout(() => { window.location.href = 'dashboard-projects.html'; }, 900);
+    }
+
+    /* --- Sign In --- */
+    const signinForm = $('#signinForm');
+    if (signinForm) {
+        const emailInput = $('#signinEmail');
+        const passInput = $('#signinPassword');
+        prepareAuthInputs(signinForm);
+        signinForm.addEventListener('submit', e => {
+            e.preventDefault();
+            const email = emailInput ? emailInput.value.trim() : '';
+            const emailOk = emailInput && emailRe.test(email);
+            const passOk = passInput && passInput.value.trim().length > 0;
+            if (emailInput) markSuffix(emailInput, emailOk);
+            if (passInput) markSuffix(passInput, passOk);
+            if (!emailOk || !passOk) {
+                showToast('<i class="bi bi-exclamation-circle-fill me-2"></i>Please enter a valid email and password.');
+                return;
+            }
+            const name = email.split('@')[0].replace(/[._-]+/g, ' ').replace(/\b\w/g, l => l.toUpperCase());
+            saveSession(email, name);
+            simulateAuth(signinForm, signinForm.querySelector('button[type="submit"]'), () => {
+                showToast('<i class="bi bi-box-arrow-in-right me-2"></i>Welcome back! Redirecting to your dashboard...');
+                goToDashboard();
+            });
+        });
+    }
+
+    /* --- Sign Up --- */
+    const signupForm = $('#signupForm');
+    if (signupForm) {
+        const nameInput = $('#signupName');
+        const sEmailInput = $('#signupEmail');
+        const passInput = $('#signupPassword');
+        const confirmInput = $('#signupConfirm');
+        const terms = $('#termsCheck');
+        prepareAuthInputs(signupForm);
+        signupForm.addEventListener('submit', e => {
+            e.preventDefault();
+            const name = nameInput ? nameInput.value.trim() : '';
+            const email = sEmailInput ? sEmailInput.value.trim() : '';
+            const nameOk = nameInput && name.length >= 2;
+            const emailOk = sEmailInput && emailRe.test(email);
+            const passOk = passInput && passInput.value.length >= 8;
+            const confirmOk = confirmInput && confirmInput.value === passInput.value;
+            const termsOk = terms && terms.checked;
+            if (nameInput) markSuffix(nameInput, nameOk);
+            if (sEmailInput) markSuffix(sEmailInput, emailOk);
+            if (passInput) markSuffix(passInput, passOk);
+            if (confirmInput) markSuffix(confirmInput, confirmOk);
+            if (terms) {
+                terms.classList.toggle('is-invalid', !termsOk);
+                const checkWrap = terms.closest('.auth-check');
+                if (checkWrap) checkWrap.classList.toggle('invalid', !termsOk);
+            }
+            if (!nameOk || !emailOk || !passOk || !confirmOk || !termsOk) {
+                showToast('<i class="bi bi-exclamation-circle-fill me-2"></i>Please fix the highlighted fields to continue.');
+                return;
+            }
+            simulateAuth(signupForm, signupForm.querySelector('button[type="submit"]'), () => {
+                showToast('<i class="bi bi-person-check-fill me-2"></i>Account created! Redirecting to sign in...');
+                setTimeout(() => { window.location.href = 'signin.html'; }, 900);
+            });
+        });
+    }
+
+    /* --- Social buttons (demo): short-circuit straight into the dashboard --- */
+    $$('.auth-social-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+            saveSession('user@nexora.io', 'Nexora User');
+            showToast('<i class="bi bi-box-arrow-in-right me-2"></i>Signing you in with the provider...');
+            goToDashboard();
+        });
+    });
+
+    /* --- While signed in, site "Sign In" links become "Dashboard" --- */
+    try {
+        const activeSession = JSON.parse(localStorage.getItem('nexora_user') || 'null');
+        if (activeSession) {
+            $$('a[href="signin.html"]').forEach(a => {
+                a.href = 'dashboard-projects.html';
+                a.textContent = 'Dashboard';
+            });
+        }
+    } catch (e) { /* storage unavailable */ }
+
+    /* ================================================================
+        8. FONTS / IMAGES — refresh ScrollTrigger measurements
        ================================================================ */
     if (HAS_GSAP && window.ScrollTrigger) {
         window.addEventListener('load', () => ScrollTrigger.refresh());

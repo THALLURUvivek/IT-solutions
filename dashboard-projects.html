@@ -1,0 +1,868 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nexora Dashboard</title>
+    <meta name="description" content="Your Nexora client dashboard — projects, support, services and more.">
+    <meta name="theme-color" content="#0a0e27">
+    <link rel="icon" href="images/image.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/dashboard.css">
+</head>
+<body class="dash-body">
+
+    <!-- ================= PRELOADER (shared across pages) ================= -->
+    <div id="preloader">
+        <div class="loader">
+            <div class="loader-logo"><img src="images/image.png" alt="Nexora"></div>
+            <div class="loader-bar"><span></span></div>
+        </div>
+    </div>
+
+    <div class="dash-shell">
+        <div class="dash-ambient" aria-hidden="true">
+            <div class="orb o1"></div>
+            <div class="orb o2"></div>
+            <div class="orb o3"></div>
+            <div class="grid"></div>
+        </div>
+
+        <!-- ================= SIDEBAR ================= -->
+        <aside class="dash-sidebar" id="dashSidebar">
+            <div class="d-brand">
+                <a class="navbar-brand" href="index.html">
+                    <img src="images/image.png" alt="Nexora" class="brand-logo">
+                </a>
+                <button class="d-collapse" id="dashCollapse" aria-label="Toggle sidebar"><i class="bi bi-chevron-left"></i></button>
+            </div>
+
+            <nav class="d-nav">
+                <span class="d-nav-label">Menu</span>
+                <a class="d-nav-link js-view active" href="#projects" data-view="projects"><i class="bi bi-kanban"></i><span class="txt">Projects</span><span class="d-nav-badge">12</span></a>
+                <a class="d-nav-link js-view" href="#support" data-view="support"><i class="bi bi-life-preserver"></i><span class="txt">Support</span><span class="d-nav-badge warn">3</span></a>
+
+                <span class="d-nav-label">Quick Links</span>
+                <a class="d-nav-link js-view" href="#site" data-view="site"><i class="bi bi-globe2"></i><span class="txt">Back to Site</span></a>
+                <a class="d-nav-link js-view" href="#services" data-view="services"><i class="bi bi-stack"></i><span class="txt">Services</span></a>
+                <a class="d-nav-link js-view" href="#pricing" data-view="pricing"><i class="bi bi-tags"></i><span class="txt">Pricing</span></a>
+                <a class="d-nav-link js-view" href="#contact" data-view="contact"><i class="bi bi-chat-heart"></i><span class="txt">Contact</span></a>
+            </nav>
+
+            <div class="d-user">
+                <span class="d-avatar status js-user-initials">MR</span>
+                <div class="d-user-meta">
+                    <strong class="js-user-name">Client</strong>
+                    <span class="plan"><i class="bi bi-patch-check-fill"></i> Enterprise</span>
+                    <a href="javascript:void(0)" id="sidebarSignout">Sign out</a>
+                </div>
+            </div>
+        </aside>
+
+        <!-- Mobile backdrop -->
+        <div class="dash-backdrop" id="dashBackdrop"></div>
+
+        <!-- ================= MAIN ================= -->
+        <main class="dash-main">
+            <header class="d-topbar">
+                <button class="d-burger" id="dashBurger" aria-label="Open menu"><i class="bi bi-list"></i></button>
+                <div class="d-topbar-title">
+                    <h1><span class="head-ico" id="topbarIcon"><i class="bi bi-kanban"></i></span> <span id="topbarTitle">Projects</span></h1>
+                    <p id="topbarSub">Manage all your active Nexora engagements</p>
+                </div>
+                <div class="d-search">
+                    <i class="bi bi-search"></i>
+                    <input type="search" class="form-control" id="dashboardSearch" data-search-target=".project-card" placeholder="Search projects..." aria-label="Search">
+                    <span class="d-kbd">CTRL K</span>
+                </div>
+                <div class="d-topbar-actions">
+                    <span class="d-date-chip"><i class="bi bi-calendar3"></i><span id="currentDate">—</span></span>
+
+                    <div class="dropdown">
+                        <button class="d-icon-btn" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Notifications">
+                            <i class="bi bi-bell"></i>
+                            <span class="d-notif-dot"></span>
+                        </button>
+                        <div class="dropdown-menu dropdown-menu-end d-notif-menu">
+                            <div class="d-flex align-items-center justify-content-between px-2 pt-1">
+                                <h6 class="dropdown-header mb-0">Notifications</h6>
+                                <button class="btn btn-sm btn-link text-decoration-none p-0" id="markRead" style="font-size:.75rem;color:var(--accent-2);">Mark all read</button>
+                            </div>
+                            <div class="d-notif-list">
+                                <div class="d-notif-item">
+                                    <span class="notif-ico n-cyan"><i class="bi bi-check2-circle"></i></span>
+                                    <div>
+                                        <p><b>ShopVerse</b> sprint review approved</p>
+                                        <small>Today · 09:42</small>
+                                    </div>
+                                </div>
+                                <div class="d-notif-item">
+                                    <span class="notif-ico n-green"><i class="bi bi-patch-check"></i></span>
+                                    <div>
+                                        <p>Milestone delivered on <b>Finflow Analytics</b></p>
+                                        <small>Today · 08:15</small>
+                                    </div>
+                                </div>
+                                <div class="d-notif-item">
+                                    <span class="notif-ico n-red"><i class="bi bi-alarm"></i></span>
+                                    <div>
+                                        <p>SLA breach risk on <b>TN-2041</b></p>
+                                        <small>Today · 10:05</small>
+                                    </div>
+                                </div>
+                                <div class="d-notif-item">
+                                    <span class="notif-ico n-purple"><i class="bi bi-people"></i></span>
+                                    <div>
+                                        <p>2 new members joined <b>Orbital Commerce</b></p>
+                                        <small>Yesterday · 18:03</small>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="dropdown">
+                        <button class="d-user-btn" data-bs-toggle="dropdown" aria-expanded="false">
+                            <span class="d-avatar js-user-initials">MR</span>
+                            <div>
+                                <strong class="js-user-name">Client</strong>
+                                <small class="js-user-email">client@nexora.io</small>
+                            </div>
+                            <i class="bi bi-chevron-down"></i>
+                        </button>
+                        <ul class="dropdown-menu dropdown-menu-end">
+                            <li><span class="dropdown-header px-2">Signed in as</span></li>
+                            <li><button class="dropdown-item" type="button" disabled><i class="bi bi-person-circle"></i> <span class="js-user-email">client@nexora.io</span></button></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item" href="index.html"><i class="bi bi-globe2"></i> Back to website</a></li>
+                            <li><a class="dropdown-item danger" href="#" id="signOutBtn"><i class="bi bi-box-arrow-right"></i> Sign Out</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </header>
+
+            <div class="d-content">
+
+                <!-- ==================== VIEW: PROJECTS ==================== -->
+                <section class="dash-view active" id="view-projects" data-view="projects">
+
+                    <div class="page-head">
+                        <div class="fade-up">
+                            <h1>Your <span class="gradient-text">Projects</span></h1>
+                            <p>Every engagement, sprint and milestone — tracked live by your dedicated Nexora team.</p>
+                        </div>
+                        <div class="page-actions fade-up d1">
+                            <a class="btn btn-outline-gradient px-4 js-view" href="#contact" data-view="contact"><i class="bi bi-calendar-event me-1"></i> Book a Call</a>
+                            <button class="btn btn-gradient px-4 js-demo-btn" data-demo="Project creation wizard opens here (demo)."><i class="bi bi-plus-lg me-1"></i> New Project</button>
+                        </div>
+                    </div>
+
+                    <div class="kpi-grid fade-up d1">
+                        <div class="kpi">
+                            <div class="kpi-top"><span class="kpi-ico"><i class="bi bi-kanban"></i></span><span class="badge-soft bs-cyan">Live</span></div>
+                            <div class="kpi-num">12</div>
+                            <div class="kpi-label">Total Projects</div>
+                            <span class="kpi-delta up"><i class="bi bi-arrow-up-short"></i> +2 this month</span>
+                        </div>
+                        <div class="kpi">
+                            <div class="kpi-top"><span class="kpi-ico k-cyan"><i class="bi bi-play-circle"></i></span></div>
+                            <div class="kpi-num js-count" data-count="38">0</div>
+                            <div class="kpi-label">Open Tasks</div>
+                            <span class="kpi-delta up"><i class="bi bi-arrow-up-short"></i> 14 done this week</span>
+                        </div>
+                        <div class="kpi">
+                            <div class="kpi-top"><span class="kpi-ico k-purple"><i class="bi bi-graph-up-arrow"></i></span><span class="badge-soft bs-orange">Hot</span></div>
+                            <div class="kpi-num">64<span style="font-size:.9rem;">%</span></div>
+                            <div class="kpi-label">Avg. Completion</div>
+                            <span class="kpi-delta up"><i class="bi bi-arrow-up-short"></i> 8% vs last month</span>
+                        </div>
+                        <div class="kpi">
+                            <div class="kpi-top"><span class="kpi-ico k-green"><i class="bi bi-people"></i></span></div>
+                            <div class="kpi-num">8</div>
+                            <div class="kpi-label">Team Members</div>
+                            <span class="kpi-delta flat"><i class="bi bi-dash"></i> 3 squads</span>
+                        </div>
+                    </div>
+
+                    <div class="panel fade-up d2" style="padding:16px 20px;">
+                        <div class="filters" data-group="status" data-target=".project-card">
+                            <button class="chip active js-filter" data-group="status" data-filter="all" data-target=".project-card"><i class="bi bi-collection"></i> All <span class="count">12</span></button>
+                            <button class="chip js-filter" data-group="status" data-filter="in-progress" data-target=".project-card"><i class="bi bi-play-circle"></i> In Progress <span class="count">4</span></button>
+                            <button class="chip js-filter" data-group="status" data-filter="review" data-target=".project-card"><i class="bi bi-eye"></i> In Review <span class="count">1</span></button>
+                            <button class="chip js-filter" data-group="status" data-filter="on-hold" data-target=".project-card"><i class="bi bi-pause-circle"></i> On Hold <span class="count">1</span></button>
+                            <button class="chip js-filter" data-group="status" data-filter="completed" data-target=".project-card"><i class="bi bi-check-circle"></i> Completed <span class="count">6</span></button>
+                        </div>
+                    </div>
+
+                    <div class="project-grid fade-up d3">
+
+                        <article class="project-card" data-status="in-progress" data-search="shopverse mobile app react native ecommerce">
+                            <div class="pc-head">
+                                <span class="pc-icon"><i class="bi bi-phone"></i></span>
+                                <span class="badge-soft bs-cyan">In Progress</span>
+                            </div>
+                            <h4 class="pc-title">ShopVerse Mobile App</h4>
+                            <p class="pc-desc">iOS &amp; Android consumer app with cart, payments and push campaigns for the ShopVerse marketplace.</p>
+                            <div class="pc-tech">
+                                <span>React Native</span><span>Node.js</span><span>Stripe</span>
+                            </div>
+                            <div class="pc-meta">
+                                <span><i class="bi bi-calendar-check"></i> Due Dec 12</span>
+                                <span><i class="bi bi-list-task"></i> Sprint 6 · 6 tasks</span>
+                            </div>
+                            <div class="pc-foot">
+                                <div class="progress-bar"><span data-progress="78"></span></div>
+                                <div class="pc-foot-row">
+                                    <div class="team-stack">
+                                        <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?q=80&w=80&auto=format&fit=crop&crop=faces" alt="member">
+                                        <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?q=80&w=80&auto=format&fit=crop&crop=faces" alt="member">
+                                        <span class="more">+2</span>
+                                    </div>
+                                    <span class="pc-pct">78% done</span>
+                                </div>
+                            </div>
+                        </article>
+
+                        <article class="project-card" data-status="review" data-search="finflow analytics fintech dashboard aws cloud migration">
+                            <div class="pc-head">
+                                <span class="pc-icon" style="background:linear-gradient(135deg,rgba(0,212,255,.9),rgba(108,92,231,.85));"><i class="bi bi-graph-up-arrow"></i></span>
+                                <span class="badge-soft bs-purple">In Review</span>
+                            </div>
+                            <h4 class="pc-title">Finflow Analytics</h4>
+                            <p class="pc-desc">Real-time fintech dashboard with predictive revenue modelling and cloud migration to AWS.</p>
+                            <div class="pc-tech">
+                                <span>React</span><span>AWS</span><span>Python</span>
+                            </div>
+                            <div class="pc-meta">
+                                <span><i class="bi bi-calendar-check"></i> Due Nov 28</span>
+                                <span><i class="bi bi-list-task"></i> Delivery · 4 tasks</span>
+                            </div>
+                            <div class="pc-foot">
+                                <div class="progress-bar"><span data-progress="92"></span></div>
+                                <div class="pc-foot-row">
+                                    <div class="team-stack">
+                                        <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?q=80&w=80&auto=format&fit=crop&crop=faces" alt="member">
+                                        <span class="more">+3</span>
+                                    </div>
+                                    <span class="pc-pct">92% done</span>
+                                </div>
+                            </div>
+                        </article>
+
+                        <article class="project-card" data-status="in-progress" data-search="medsync ai triage machine learning healthcare hipaa">
+                            <div class="pc-head">
+                                <span class="pc-icon" style="background:linear-gradient(135deg,rgba(157,77,255,.9),rgba(0,212,255,.8));"><i class="bi bi-robot"></i></span>
+                                <span class="badge-soft bs-cyan">In Progress</span>
+                            </div>
+                            <h4 class="pc-title">MedSync AI Triage</h4>
+                            <p class="pc-desc">Clinical intake assistant using LLM-based symptom triage with HIPAA-compliant storage.</p>
+                            <div class="pc-tech">
+                                <span>Python</span><span>LLM</span><span>Azure</span>
+                            </div>
+                            <div class="pc-meta">
+                                <span><i class="bi bi-calendar-check"></i> Due Jan 20</span>
+                                <span><i class="bi bi-list-task"></i> Build · 8 tasks</span>
+                            </div>
+                            <div class="pc-foot">
+                                <div class="progress-bar"><span data-progress="46"></span></div>
+                                <div class="pc-foot-row">
+                                    <div class="team-stack">
+                                        <img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?q=80&w=80&auto=format&fit=crop&crop=faces" alt="member">
+                                        <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?q=80&w=80&auto=format&fit=crop&crop=faces" alt="member">
+                                    </div>
+                                    <span class="pc-pct">46% done</span>
+                                </div>
+                            </div>
+                        </article>
+
+                        <article class="project-card" data-status="completed" data-search="hexacore website revamp marketing seo wordpress">
+                            <div class="pc-head">
+                                <span class="pc-icon" style="background:linear-gradient(135deg,rgba(45,212,167,.9),rgba(0,212,255,.85));"><i class="bi bi-globe-americas"></i></span>
+                                <span class="badge-soft bs-green">Completed</span>
+                            </div>
+                            <h4 class="pc-title">Hexacore Website Revamp</h4>
+                            <p class="pc-desc">Marketing site rebuild with CMS, 90+ Lighthouse score and multi-language support. Delivered Feb 2026.</p>
+                            <div class="pc-tech">
+                                <span>Next.js</span><span>Sanity</span><span>i18n</span>
+                            </div>
+                            <div class="pc-meta">
+                                <span><i class="bi bi-calendar-check"></i> Delivered</span>
+                                <span><i class="bi bi-list-task"></i> Closed · 0 tasks</span>
+                            </div>
+                            <div class="pc-foot">
+                                <div class="progress-bar"><span data-progress="100"></span></div>
+                                <div class="pc-foot-row">
+                                    <div class="team-stack">
+                                        <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?q=80&w=80&auto=format&fit=crop&crop=faces" alt="member">
+                                    </div>
+                                    <span class="badge-soft bs-gray">Closed</span>
+                                </div>
+                            </div>
+                        </article>
+
+                        <article class="project-card" data-status="on-hold" data-search="cloudlynx data sync replication warehouse cloud">
+                            <div class="pc-head">
+                                <span class="pc-icon" style="background:linear-gradient(135deg,rgba(255,184,107,.9),rgba(255,143,90,.85));"><i class="bi bi-box-seam"></i></span>
+                                <span class="badge-soft bs-orange">On Hold</span>
+                            </div>
+                            <h4 class="pc-title">CloudLynx Data Sync</h4>
+                            <p class="pc-desc">Multi-region replication layer syncing on-premise warehouses to cloud for the CloudLynx platform.</p>
+                            <div class="pc-tech">
+                                <span>Kafka</span><span>AWS</span><span>Go</span>
+                            </div>
+                            <div class="pc-meta">
+                                <span><i class="bi bi-calendar-check"></i> Due TBA</span>
+                                <span><i class="bi bi-list-task"></i> Awaiting access · 2 tasks</span>
+                            </div>
+                            <div class="pc-foot">
+                                <div class="progress-bar"><span data-progress="18"></span></div>
+                                <div class="pc-foot-row">
+                                    <div class="team-stack">
+                                        <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?q=80&w=80&auto=format&fit=crop&crop=faces" alt="member">
+                                    </div>
+                                    <span class="pc-pct">18% kickoff</span>
+                                </div>
+                            </div>
+                        </article>
+
+                        <article class="project-card" data-status="in-progress" data-search="orbital commerce engine headless subscriptions">
+                            <div class="pc-head">
+                                <span class="pc-icon" style="background:linear-gradient(135deg,rgba(108,92,231,.85),rgba(157,77,255,.9));"><i class="bi bi-cart3"></i></span>
+                                <span class="badge-soft bs-cyan">In Progress</span>
+                            </div>
+                            <h4 class="pc-title">Orbital Commerce Engine</h4>
+                            <p class="pc-desc">Headless storefront with subscription billing, inventory sync and 60+ payment rails.</p>
+                            <div class="pc-tech">
+                                <span>Next.js</span><span>GraphQL</span><span>Stripe</span>
+                            </div>
+                            <div class="pc-meta">
+                                <span><i class="bi bi-calendar-check"></i> Due Feb 10</span>
+                                <span><i class="bi bi-list-task"></i> Build · 9 tasks</span>
+                            </div>
+                            <div class="pc-foot">
+                                <div class="progress-bar"><span data-progress="61"></span></div>
+                                <div class="pc-foot-row">
+                                    <div class="team-stack">
+                                        <img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?q=80&w=80&auto=format&fit=crop&crop=faces" alt="member">
+                                        <span class="more">+4</span>
+                                    </div>
+                                    <span class="pc-pct">61% done</span>
+                                </div>
+                            </div>
+                        </article>
+                    </div>
+                </section>
+
+                <!-- ==================== VIEW: SUPPORT ==================== -->
+                <section class="dash-view" id="view-support" data-view="support">
+
+                    <div class="page-head">
+                        <div class="fade-up">
+                            <h1>Support <span class="gradient-text">Tickets</span></h1>
+                            <p>Every issue gets a ticket — tracked, triaged and resolved by your Nexora squad.</p>
+                        </div>
+                        <div class="page-actions fade-up d1">
+                            <button class="btn btn-outline-gradient px-4 js-demo-btn" data-demo="Live chat opens here shortly (demo)."><i class="bi bi-chat-dots me-1"></i> Live Chat</button>
+                            <button class="btn btn-gradient px-4" data-bs-toggle="modal" data-bs-target="#newTicketModal"><i class="bi bi-plus-lg me-1"></i> New Ticket</button>
+                        </div>
+                    </div>
+
+                    <div class="kpi-grid fade-up d1">
+                        <div class="kpi">
+                            <div class="kpi-top"><span class="kpi-ico k-red"><i class="bi bi-envelope-open"></i></span><span class="badge-soft bs-red">Needs action</span></div>
+                            <div class="kpi-num">3</div>
+                            <div class="kpi-label">Open Tickets</div>
+                            <span class="kpi-delta down"><i class="bi bi-arrow-down-short"></i> 2 closer to SLA</span>
+                        </div>
+                        <div class="kpi">
+                            <div class="kpi-top"><span class="kpi-ico k-cyan"><i class="bi bi-lightning-charge"></i></span></div>
+                            <div class="kpi-num js-count" data-count="2">0</div>
+                            <div class="kpi-label">Avg. First Reply</div>
+                            <span class="kpi-delta up"><i class="bi bi-arrow-up-short"></i> hours · target &lt; 4h</span>
+                        </div>
+                        <div class="kpi">
+                            <div class="kpi-top"><span class="kpi-ico k-purple"><i class="bi bi-check2-all"></i></span></div>
+                            <div class="kpi-num">18</div>
+                            <div class="kpi-label">Resolved This Month</div>
+                            <span class="kpi-delta up"><i class="bi bi-arrow-up-short"></i> +6 vs last month</span>
+                        </div>
+                        <div class="kpi">
+                            <div class="kpi-top"><span class="kpi-ico k-green"><i class="bi bi-emoji-smile"></i></span></div>
+                            <div class="kpi-num">4.8</div>
+                            <div class="kpi-label">CSAT Score</div>
+                            <span class="kpi-delta flat"><i class="bi bi-star-fill"></i> 212 reviews</span>
+                        </div>
+                    </div>
+
+                    <div class="sla-strip fade-up d1">
+                        <span class="sla-chip ok"><i class="bi bi-shield-check"></i> 97% tickets within SLA</span>
+                        <span class="sla-chip"><i class="bi bi-clock-history"></i> Next SLA check: 2h 11m</span>
+                        <span class="sla-chip warn"><i class="bi bi-alarm"></i> 1 breach risk — TN-2041</span>
+                    </div>
+
+                    <div class="panel fade-up d2" style="padding:16px 20px;">
+                        <div class="filters" data-group="status" data-target=".ticket">
+                            <button class="chip active js-filter" data-group="status" data-filter="all" data-target=".ticket"><i class="bi bi-inbox"></i> All <span class="count">6</span></button>
+                            <button class="chip js-filter" data-group="status" data-filter="open" data-target=".ticket"><i class="bi bi-envelope-open"></i> Open <span class="count">2</span></button>
+                            <button class="chip js-filter" data-group="status" data-filter="in-progress" data-target=".ticket"><i class="bi bi-arrow-repeat"></i> In Progress <span class="count">2</span></button>
+                            <button class="chip js-filter" data-group="status" data-filter="resolved" data-target=".ticket"><i class="bi bi-check2-circle"></i> Resolved <span class="count">2</span></button>
+                        </div>
+                    </div>
+
+                    <div class="ticket-list fade-up d3" id="ticketList">
+
+                        <article class="ticket" data-status="open" data-search="tn-2041 login 2fa safari auth two factor bug high">
+                            <span class="ticket-ico n-red"><i class="bi bi-bug"></i></span>
+                            <div class="ticket-main">
+                                <div class="ticket-row1">
+                                    <h5>Login fails with 2FA on Safari</h5>
+                                    <span class="badge-soft bs-red">High</span>
+                                </div>
+                                <p class="ticket-desc">After the latest deploy, two-factor authentication redirects to a blank page in Safari 17+ on macOS.</p>
+                                <div class="ticket-meta">
+                                    <span><i class="bi bi-tag"></i> Bug</span>
+                                    <span><i class="bi bi-clock"></i> Raised 3h ago</span>
+                                    <span><i class="bi bi-person"></i> Riya Sharma</span>
+                                    <span><i class="bi bi-hash"></i> TN-2041</span>
+                                </div>
+                            </div>
+                            <div class="ticket-side">
+                                <span class="badge-soft bs-cyan">Open</span>
+                                <small class="sla-tag"><i class="bi bi-alarm"></i> SLA 19h left</small>
+                                <div class="ticket-actions">
+                                    <button class="btn btn-xs btn-gradient t-resolve-btn"><i class="bi bi-check-lg"></i> Resolve</button>
+                                    <button class="btn btn-xs btn-ghost t-details-btn"><i class="bi bi-arrow-up-right"></i></button>
+                                </div>
+                            </div>
+                        </article>
+
+                        <article class="ticket" data-status="in-progress" data-search="tn-2040 invoice export empty csv billing medium">
+                            <span class="ticket-ico n-cyan"><i class="bi bi-file-earmark-arrow-down"></i></span>
+                            <div class="ticket-main">
+                                <div class="ticket-row1">
+                                    <h5>Invoice export produces empty CSV</h5>
+                                    <span class="badge-soft bs-cyan">Medium</span>
+                                </div>
+                                <p class="ticket-desc">Exporting a monthly invoice batch downloads a 0 KB CSV on Chrome and Edge. Works for single invoices.</p>
+                                <div class="ticket-meta">
+                                    <span><i class="bi bi-tag"></i> Billing</span>
+                                    <span><i class="bi bi-clock"></i> Raised 1d ago</span>
+                                    <span><i class="bi bi-person"></i> Marcus Lee</span>
+                                    <span><i class="bi bi-hash"></i> TN-2040</span>
+                                </div>
+                            </div>
+                            <div class="ticket-side">
+                                <span class="badge-soft bs-purple">In Progress</span>
+                                <small class="sla-tag ok"><i class="bi bi-shield-check"></i> On track</small>
+                                <div class="ticket-actions">
+                                    <button class="btn btn-xs btn-gradient t-resolve-btn"><i class="bi bi-check-lg"></i> Resolve</button>
+                                    <button class="btn btn-xs btn-ghost t-details-btn"><i class="bi bi-arrow-up-right"></i></button>
+                                </div>
+                            </div>
+                        </article>
+
+                        <article class="ticket" data-status="resolved" data-search="tn-2038 staging env down deploy urgent infra">
+                            <span class="ticket-ico n-purple"><i class="bi bi-hdd-network"></i></span>
+                            <div class="ticket-main">
+                                <div class="ticket-row1">
+                                    <h5>Staging environment down after deploy</h5>
+                                    <span class="badge-soft bs-purple">Urgent</span>
+                                </div>
+                                <p class="ticket-desc">Production-safe replica of the staging cluster was unreachable post-deploy. Hotfix applied and verified.</p>
+                                <div class="ticket-meta">
+                                    <span><i class="bi bi-tag"></i> Infrastructure</span>
+                                    <span><i class="bi bi-clock"></i> Resolved 2d ago</span>
+                                    <span><i class="bi bi-person"></i> Arjun Nair</span>
+                                    <span><i class="bi bi-hash"></i> TN-2038</span>
+                                </div>
+                            </div>
+                            <div class="ticket-side">
+                                <span class="badge-soft bs-green">Resolved</span>
+                                <small class="sla-tag ok"><i class="bi bi-shield-check"></i> 3h 12m</small>
+                                <div class="ticket-actions">
+                                    <button class="btn btn-xs btn-ghost t-details-btn"><i class="bi bi-arrow-up-right"></i></button>
+                                </div>
+                            </div>
+                        </article>
+
+                        <article class="ticket" data-status="open" data-search="tn-2035 feature request dark mode ui design low">
+                            <span class="ticket-ico n-green"><i class="bi bi-moon-stars"></i></span>
+                            <div class="ticket-main">
+                                <div class="ticket-row1">
+                                    <h5>Feature request: dark mode</h5>
+                                    <span class="badge-soft bs-gray">Low</span>
+                                </div>
+                                <p class="ticket-desc">Community requesting a native dark mode for the client portal. Scoped to theming tokens only.</p>
+                                <div class="ticket-meta">
+                                    <span><i class="bi bi-tag"></i> Feature</span>
+                                    <span><i class="bi bi-clock"></i> Raised 4d ago</span>
+                                    <span><i class="bi bi-person"></i> Priya Patel</span>
+                                    <span><i class="bi bi-hash"></i> TN-2035</span>
+                                </div>
+                            </div>
+                            <div class="ticket-side">
+                                <span class="badge-soft bs-cyan">Open</span>
+                                <small class="sla-tag"><i class="bi bi-alarm"></i> Backlog</small>
+                                <div class="ticket-actions">
+                                    <button class="btn btn-xs btn-gradient t-resolve-btn"><i class="bi bi-check-lg"></i> Resolve</button>
+                                    <button class="btn btn-xs btn-ghost t-details-btn"><i class="bi bi-arrow-up-right"></i></button>
+                                </div>
+                            </div>
+                        </article>
+
+                        <article class="ticket" data-status="in-progress" data-search="tn-2029 slack webhook duplicates messages integrations medium">
+                            <span class="ticket-ico n-orange"><i class="bi bi-slack"></i></span>
+                            <div class="ticket-main">
+                                <div class="ticket-row1">
+                                    <h5>Slack webhook duplicates deployment messages</h5>
+                                    <span class="badge-soft bs-cyan">Medium</span>
+                                </div>
+                                <p class="ticket-desc">Deployment notifications arrive twice when triggered from CI. Likely duplicate webhook registration.</p>
+                                <div class="ticket-meta">
+                                    <span><i class="bi bi-tag"></i> Integration</span>
+                                    <span><i class="bi bi-clock"></i> Raised 5d ago</span>
+                                    <span><i class="bi bi-person"></i> Sofia Rossi</span>
+                                    <span><i class="bi bi-hash"></i> TN-2029</span>
+                                </div>
+                            </div>
+                            <div class="ticket-side">
+                                <span class="badge-soft bs-purple">In Progress</span>
+                                <small class="sla-tag ok"><i class="bi bi-shield-check"></i> On track</small>
+                                <div class="ticket-actions">
+                                    <button class="btn btn-xs btn-gradient t-resolve-btn"><i class="bi bi-check-lg"></i> Resolve</button>
+                                    <button class="btn btn-xs btn-ghost t-details-btn"><i class="bi bi-arrow-up-right"></i></button>
+                                </div>
+                            </div>
+                        </article>
+
+                        <article class="ticket" data-status="resolved" data-search="tn-2024 dashboard loads slow mobile performance high">
+                            <span class="ticket-ico n-red"><i class="bi bi-speedometer"></i></span>
+                            <div class="ticket-main">
+                                <div class="ticket-row1">
+                                    <h5>Dashboard loads slowly on mobile</h5>
+                                    <span class="badge-soft bs-red">High</span>
+                                </div>
+                                <p class="ticket-desc">4G load time &gt; 9s. Fixed via image preloading, bundled chunks and edge caching. Now under 2.2s.</p>
+                                <div class="ticket-meta">
+                                    <span><i class="bi bi-tag"></i> Performance</span>
+                                    <span><i class="bi bi-clock"></i> Resolved 1w ago</span>
+                                    <span><i class="bi bi-person"></i> Marcus Lee</span>
+                                    <span><i class="bi bi-hash"></i> TN-2024</span>
+                                </div>
+                            </div>
+                            <div class="ticket-side">
+                                <span class="badge-soft bs-green">Resolved</span>
+                                <small class="sla-tag ok"><i class="bi bi-shield-check"></i> 22h 08m</small>
+                                <div class="ticket-actions">
+                                    <button class="btn btn-xs btn-ghost t-details-btn"><i class="bi bi-arrow-up-right"></i></button>
+                                </div>
+                            </div>
+                        </article>
+
+                    </div>
+
+                    <div class="dash-empty js-hidden" id="ticketsEmpty">
+                        <i class="bi bi-hand-thumbs-up"></i>
+                        <h6>All caught up!</h6>
+                        <p>No tickets match your filter. Try a different status or search.</p>
+                    </div>
+                </section>
+
+                <!-- ==================== VIEW: SITE ==================== -->
+                <section class="dash-view" id="view-site" data-view="site">
+                    <div class="page-head">
+                        <div>
+                            <h1>Explore the <span class="gradient-text">Site</span></h1>
+                            <p>Quick access to every corner of the Nexora public website.</p>
+                        </div>
+                    </div>
+                    <div class="info-grid fade-up d1">
+                        <a class="info-card" href="index.html">
+                            <span class="ic-ico"><i class="bi bi-house-door"></i></span>
+                            <h5>Homepage</h5>
+                            <p>The full brand story, hero showcase and latest highlights.</p>
+                            <span class="ic-link">Visit <i class="bi bi-arrow-right-short"></i></span>
+                        </a>
+                        <a class="info-card" href="about.html">
+                            <span class="ic-ico"><i class="bi bi-people"></i></span>
+                            <h5>About Nexora</h5>
+                            <p>Who we are, our mission and the people behind the products.</p>
+                            <span class="ic-link">Visit <i class="bi bi-arrow-right-short"></i></span>
+                        </a>
+                        <a class="info-card" href="work.html">
+                            <span class="ic-ico"><i class="bi bi-briefcase"></i></span>
+                            <h5>Our Work</h5>
+                            <p>Case studies and deliverables across every industry we serve.</p>
+                            <span class="ic-link">Visit <i class="bi bi-arrow-right-short"></i></span>
+                        </a>
+                        <a class="info-card" href="process.html">
+                            <span class="ic-ico"><i class="bi bi-diagram-3"></i></span>
+                            <h5>Our Process</h5>
+                            <p>Discover, design, build, launch — how your projects get shipped.</p>
+                            <span class="ic-link">Visit <i class="bi bi-arrow-right-short"></i></span>
+                        </a>
+                        <a class="info-card" href="blog.html">
+                            <span class="ic-ico"><i class="bi bi-journal"></i></span>
+                            <h5>Blog &amp; Insights</h5>
+                            <p>Engineering deep-dives, guides and product thinking from the team.</p>
+                            <span class="ic-link">Visit <i class="bi bi-arrow-right-short"></i></span>
+                        </a>
+                        <a class="info-card js-view" href="#pricing" data-view="pricing">
+                            <span class="ic-ico"><i class="bi bi-tags"></i></span>
+                            <h5>Pricing</h5>
+                            <p>Transparent plans for every stage — from prototypes to enterprise.</p>
+                            <span class="ic-link">View <i class="bi bi-arrow-right-short"></i></span>
+                        </a>
+                    </div>
+                </section>
+
+                <!-- ==================== VIEW: SERVICES ==================== -->
+                <section class="dash-view" id="view-services" data-view="services">
+                    <div class="page-head">
+                        <div>
+                            <h1>Our <span class="gradient-text">Services</span></h1>
+                            <p>Everything your product needs to go from idea to scale.</p>
+                        </div>
+                        <div class="page-actions">
+                            <a class="btn btn-outline-gradient px-4" href="services.html"><i class="bi bi-arrow-up-right me-1"></i> Full details</a>
+                        </div>
+                    </div>
+                    <div class="info-grid fade-up d1">
+                        <a class="info-card" href="services.html">
+                            <span class="ic-ico"><i class="bi bi-code-slash"></i></span>
+                            <h5>Custom Software</h5>
+                            <p>Web apps, portals and platforms engineered to your exact business logic.</p>
+                            <span class="ic-link">Explore <i class="bi bi-arrow-right-short"></i></span>
+                        </a>
+                        <a class="info-card" href="services.html">
+                            <span class="ic-ico"><i class="bi bi-phone"></i></span>
+                            <h5>Mobile Apps</h5>
+                            <p>Native iOS &amp; Android experiences with offline-first reliability.</p>
+                            <span class="ic-link">Explore <i class="bi bi-arrow-right-short"></i></span>
+                        </a>
+                        <a class="info-card" href="services.html">
+                            <span class="ic-ico"><i class="bi bi-cloud-arrow-up"></i></span>
+                            <h5>Cloud &amp; DevOps</h5>
+                            <p>CI/CD, scaling and infrastructure automation on AWS, Azure and GCP.</p>
+                            <span class="ic-link">Explore <i class="bi bi-arrow-right-short"></i></span>
+                        </a>
+                        <a class="info-card" href="services.html">
+                            <span class="ic-ico"><i class="bi bi-robot"></i></span>
+                            <h5>AI &amp; Data</h5>
+                            <p>LLM integrations, analytics pipelines and predictive modelling.</p>
+                            <span class="ic-link">Explore <i class="bi bi-arrow-right-short"></i></span>
+                        </a>
+                        <a class="info-card" href="services.html">
+                            <span class="ic-ico"><i class="bi bi-palette"></i></span>
+                            <h5>UI/UX Design</h5>
+                            <p>Research-backed interfaces and design systems your users will love.</p>
+                            <span class="ic-link">Explore <i class="bi bi-arrow-right-short"></i></span>
+                        </a>
+                        <a class="info-card" href="services.html">
+                            <span class="ic-ico"><i class="bi bi-shield-check"></i></span>
+                            <h5>Support &amp; SLAs</h5>
+                            <p>White-glove maintenance, monitoring and 24/7 response plans.</p>
+                            <span class="ic-link">Explore <i class="bi bi-arrow-right-short"></i></span>
+                        </a>
+                    </div>
+                </section>
+
+                <!-- ==================== VIEW: PRICING ==================== -->
+                <section class="dash-view" id="view-pricing" data-view="pricing">
+                    <div class="page-head">
+                        <div>
+                            <h1>Simple, <span class="gradient-text">Transparent</span> Pricing</h1>
+                            <p>Pick a plan that matches how you want to work with us. No surprises, no lock-in.</p>
+                        </div>
+                    </div>
+                    <div class="plans-grid fade-up d1">
+                        <div class="plan-card">
+                            <h5>Starter</h5>
+                            <div class="price">$1,499 <small>/ project</small></div>
+                            <p>Ideal for MVPs and focused builds with a clear scope.</p>
+                            <ul>
+                                <li><i class="bi bi-check-circle-fill"></i> Single project scope</li>
+                                <li><i class="bi bi-check-circle-fill"></i> 4-week typical delivery</li>
+                                <li><i class="bi bi-check-circle-fill"></i> Weekly demo calls</li>
+                                <li><i class="bi bi-check-circle-fill"></i> 1 month support</li>
+                            </ul>
+                            <button class="btn btn-ghost js-demo-btn" data-demo="Starter plan request submitted (demo).">Choose Starter</button>
+                        </div>
+                        <div class="plan-card featured">
+                            <h5>Growth</h5>
+                            <div class="price">$4,900 <small>/ month</small></div>
+                            <p>The sweet spot for scaling products with a dedicated squad.</p>
+                            <ul>
+                                <li><i class="bi bi-check-circle-fill"></i> Dedicated cross-functional team</li>
+                                <li><i class="bi bi-check-circle-fill"></i> Unlimited iterations</li>
+                                <li><i class="bi bi-check-circle-fill"></i> Priority SLAs &amp; 15-min response</li>
+                                <li><i class="bi bi-check-circle-fill"></i> Analytics &amp; replays included</li>
+                            </ul>
+                            <button class="btn btn-gradient js-demo-btn" data-demo="Growth plan request submitted (demo).">Choose Growth</button>
+                        </div>
+                        <div class="plan-card">
+                            <h5>Enterprise</h5>
+                            <div class="price">Let's talk</div>
+                            <p>For organizations that need architecture scale and compliance.</p>
+                            <ul>
+                                <li><i class="bi bi-check-circle-fill"></i> Named engineering leads</li>
+                                <li><i class="bi bi-check-circle-fill"></i> SSO, audit &amp; compliance</li>
+                                <li><i class="bi bi-check-circle-fill"></i> 24/7 on-call rotation</li>
+                                <li><i class="bi bi-check-circle-fill"></i> Custom contract terms</li>
+                            </ul>
+                            <a class="btn btn-ghost js-view" href="#contact" data-view="contact">Talk to Sales</a>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- ==================== VIEW: CONTACT ==================== -->
+                <section class="dash-view" id="view-contact" data-view="contact">
+                    <div class="page-head">
+                        <div>
+                            <h1>Talk to the <span class="gradient-text">Team</span></h1>
+                            <p>Questions, escalations or a new idea — we're one message away.</p>
+                        </div>
+                    </div>
+                    <div class="contact-row fade-up d1">
+                        <div class="contact-card">
+                            <span class="cc-ico"><i class="bi bi-envelope"></i></span>
+                            <div>
+                                <h6>Email us</h6>
+                                <small>hello@nexora.io</small>
+                            </div>
+                        </div>
+                        <div class="contact-card">
+                            <span class="cc-ico"><i class="bi bi-telephone"></i></span>
+                            <div>
+                                <h6>Call us</h6>
+                                <small>+1 (555) 013-2026</small>
+                            </div>
+                        </div>
+                        <div class="contact-card">
+                            <span class="cc-ico"><i class="bi bi-geo-alt"></i></span>
+                            <div>
+                                <h6>Visit us</h6>
+                                <small>Bangalore · New York · Remote</small>
+                            </div>
+                        </div>
+                        <div class="contact-card">
+                            <span class="cc-ico"><i class="bi bi-clock"></i></span>
+                            <div>
+                                <h6>Response time</h6>
+                                <small>Enterprise SLA: under 15 min</small>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="panel fade-up d2">
+                        <div class="panel-head">
+                            <h3 class="panel-title"><span class="panel-ico"><i class="bi bi-chat-square-text"></i></span> Send us a message</h3>
+                        </div>
+                        <form id="contactForm" class="row g-3" novalidate>
+                            <div class="col-md-6">
+                                <label class="form-label" for="name">Your name</label>
+                                <input class="form-control" id="name" placeholder="Alex Morgan" required>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label" for="email">Email</label>
+                                <input type="email" class="form-control" id="email" placeholder="you@company.com" required>
+                            </div>
+                            <div class="col-12">
+                                <label class="form-label" for="message">Message</label>
+                                <textarea class="form-control" id="message" rows="4" placeholder="Tell us what you need help with…" required></textarea>
+                            </div>
+                            <div class="col-12 d-flex justify-content-end">
+                                <button class="btn btn-gradient px-4" type="submit"><i class="bi bi-send me-1"></i> Send Message</button>
+                            </div>
+                        </form>
+                    </div>
+                </section>
+
+            </div>
+        </main>
+    </div>
+
+    <!-- ================= NEW TICKET MODAL ================= -->
+    <div class="modal fade" id="newTicketModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-top">
+                    <span class="modal-ico"><i class="bi bi-life-preserver"></i></span>
+                    <div>
+                        <h5>Raise a New Ticket</h5>
+                        <p>We typically reply within 2 hours on the Enterprise plan.</p>
+                    </div>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <form id="ticketForm" novalidate>
+                    <div class="mb-3">
+                        <label class="form-label" for="ticketSubject">Subject</label>
+                        <input type="text" class="form-control" id="ticketSubject" placeholder="e.g. Payment gateway timeout" required>
+                    </div>
+                    <div class="row g-3 mb-3">
+                        <div class="col-md-6">
+                            <label class="form-label" for="ticketType">Type</label>
+                            <select class="form-select" id="ticketType">
+                                <option>Bug</option>
+                                <option>Feature</option>
+                                <option>Support</option>
+                                <option>Billing</option>
+                            </select>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label" for="ticketPriority">Priority</label>
+                            <select class="form-select" id="ticketPriority">
+                                <option>Low</option>
+                                <option>Medium</option>
+                                <option selected>High</option>
+                                <option>Urgent</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label" for="ticketDesc">Description</label>
+                        <textarea class="form-control" id="ticketDesc" rows="3" placeholder="Steps to reproduce, expected vs actual result, links…" required></textarea>
+                    </div>
+                    <div class="d-flex justify-content-end gap-2 mt-4">
+                        <button type="button" class="btn btn-ghost" data-bs-dismiss="modal">Cancel</button>
+                        <button type="submit" class="btn btn-gradient px-4">Submit Ticket</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Back to top -->
+    <button id="backToTop" class="back-to-top" aria-label="Back to top"><i class="bi bi-arrow-up"></i></button>
+
+    <!-- Toast -->
+    <div class="toast-container position-fixed bottom-0 end-0 p-3">
+        <div id="formToast" class="toast dash-toast border-0" role="alert" aria-live="assertive" aria-atomic="true">
+            <div class="d-flex">
+                <div class="toast-body"><i class="bi bi-check-circle-fill me-2"></i>Message sent!</div>
+                <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+            </div>
+        </div>
+        <div id="dashToast" class="toast dash-toast border-0" role="alert" aria-live="assertive" aria-atomic="true">
+            <div class="d-flex">
+                <div class="toast-body"><i class="bi bi-check-circle-fill me-2"></i>Done!</div>
+                <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- GSAP + ScrollTrigger -->
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
+    <!-- Custom JS -->
+    <script src="js/main.js"></script>
+    <script src="js/dashboard.js"></script>
+</body>
+</html>

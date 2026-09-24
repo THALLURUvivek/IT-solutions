@@ -6,7 +6,7 @@
     <title>Services — Nexora</title>
     <meta name="description" content="Web development, mobile apps, cloud solutions, AI/ML, UI/UX design and 24/7 support — end-to-end services from Nexora.">
     <meta name="theme-color" content="#0a0e27">
-    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='20' fill='%236c5ce7'/><text x='50' y='72' font-size='60' text-anchor='middle' fill='white' font-family='Arial' font-weight='bold'>N</text></svg>">
+    <link rel="icon" href="images/image.png">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -19,9 +19,8 @@
     <!-- ================= PRELOADER (shared across pages) ================= -->
     <div id="preloader">
         <div class="loader">
-            <div class="loader-logo">N</div>
+            <div class="loader-logo"><img src="images/image.png" alt="Nexora"></div>
             <div class="loader-bar"><span></span></div>
-            <p>NEXORA</p>
         </div>
     </div>
 
@@ -29,8 +28,7 @@
     <nav id="mainNav" class="navbar navbar-expand-lg fixed-top">
         <div class="container">
             <a class="navbar-brand" href="index.html">
-                <span class="brand-mark"><i class="bi bi-hexagon-half"></i></span>
-                NEX<span>ORA</span>
+                <img src="images/image.png" alt="Nexora" class="brand-logo">
             </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#navOffcanvas" aria-controls="navOffcanvas" aria-label="Toggle navigation">
                 <span class="toggler-icon"></span>
@@ -40,8 +38,7 @@
             <div class="offcanvas offcanvas-end" tabindex="-1" id="navOffcanvas">
                 <div class="offcanvas-header">
                     <a class="navbar-brand" href="index.html">
-                        <span class="brand-mark"><i class="bi bi-hexagon-half"></i></span>
-                        NEX<span>ORA</span>
+                        <img src="images/image.png" alt="Nexora" class="brand-logo">
                     </a>
                     <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas" aria-label="Close"></button>
                 </div>
@@ -57,7 +54,8 @@
                         <li class="nav-item"><a class="nav-link" href="contact.html">Contact</a></li>
                     </ul>
                     <div class="d-flex align-items-center gap-3 mt-3 mt-lg-0">
-                        <a href="contact.html" class="btn btn-gradient btn-sm px-4 py-2">Get Started</a>
+                        <a href="signin.html" class="nav-link px-2 text-nowrap">Sign In</a>
+                        <a href="signup.html" class="btn btn-gradient btn-sm px-4 py-2">Get Started</a>
                     </div>
                 </div>
             </div>
@@ -96,50 +94,128 @@
             <div class="row g-4">
                 <div class="col-md-6 col-lg-4 service-col">
                     <div class="service-card">
+                        <span class="service-num">01</span>
                         <div class="service-icon"><i class="bi bi-window-desktop"></i></div>
+                        <span class="service-status"><i></i> 12 live projects</span>
                         <h4>Web Development</h4>
                         <p>High-performance websites and progressive web apps engineered for speed, SEO and conversions — from marketing sites to complex SaaS platforms.</p>
+                        <ul class="service-features">
+                            <li>Modern frameworks (React, Next.js)</li>
+                            <li>SEO &amp; Core Web Vitals optimization</li>
+                            <li>Headless &amp; content platforms</li>
+                        </ul>
                         <a href="contact.html" class="service-link">Start a Project <i class="bi bi-arrow-right"></i></a>
                     </div>
                 </div>
                 <div class="col-md-6 col-lg-4 service-col">
                     <div class="service-card">
+                        <span class="service-num">02</span>
                         <div class="service-icon"><i class="bi bi-phone"></i></div>
+                        <span class="service-status"><i></i> Launched this week</span>
                         <h4>Mobile Apps</h4>
                         <p>Native iOS, Android and cross-platform (Flutter / React Native) apps with buttery animations and delightful, accessibility-first UX.</p>
+                        <ul class="service-features">
+                            <li>iOS, Android &amp; cross-platform</li>
+                            <li>Offline-first architecture</li>
+                            <li>App Store launch &amp; ASO</li>
+                        </ul>
                         <a href="contact.html" class="service-link">Start a Project <i class="bi bi-arrow-right"></i></a>
                     </div>
                 </div>
                 <div class="col-md-6 col-lg-4 service-col">
                     <div class="service-card">
+                        <span class="service-num">03</span>
                         <div class="service-icon"><i class="bi bi-cloud-arrow-up"></i></div>
+                        <span class="service-status"><i></i> 99.9% uptime</span>
                         <h4>Cloud Solutions</h4>
                         <p>Scalable cloud migration, DevOps pipelines, infrastructure-as-code and cost optimization on AWS, GCP and Azure.</p>
+                        <ul class="service-features">
+                            <li>Migration &amp; modernization</li>
+                            <li>CI/CD &amp; infrastructure-as-code</li>
+                            <li>Security &amp; cost governance</li>
+                        </ul>
                         <a href="contact.html" class="service-link">Start a Project <i class="bi bi-arrow-right"></i></a>
                     </div>
                 </div>
                 <div class="col-md-6 col-lg-4 service-col">
                     <div class="service-card">
+                        <span class="service-num">04</span>
                         <div class="service-icon"><i class="bi bi-cpu"></i></div>
+                        <span class="service-status"><i></i> 2 models in training</span>
                         <h4>AI &amp; Machine Learning</h4>
                         <p>Intelligent automation, predictive analytics, LLM integrations and custom-trained models that unlock hidden value in your data.</p>
+                        <ul class="service-features">
+                            <li>LLM apps &amp; assistants</li>
+                            <li>Predictive &amp; forecasting models</li>
+                            <li>Automation &amp; document intelligence</li>
+                        </ul>
                         <a href="contact.html" class="service-link">Start a Project <i class="bi bi-arrow-right"></i></a>
                     </div>
                 </div>
                 <div class="col-md-6 col-lg-4 service-col">
                     <div class="service-card">
+                        <span class="service-num">05</span>
                         <div class="service-icon"><i class="bi bi-vector-pen"></i></div>
+                        <span class="service-status"><i></i> Live design ops</span>
                         <h4>UI/UX Design</h4>
                         <p>Human-centered product design — research, wireframes, interactive prototypes and scalable design systems that convert.</p>
+                        <ul class="service-features">
+                            <li>Research &amp; usability testing</li>
+                            <li>Design systems &amp; branding</li>
+                            <li>Interactive prototypes</li>
+                        </ul>
                         <a href="contact.html" class="service-link">Start a Project <i class="bi bi-arrow-right"></i></a>
                     </div>
                 </div>
                 <div class="col-md-6 col-lg-4 service-col">
                     <div class="service-card">
+                        <span class="service-num">06</span>
                         <div class="service-icon"><i class="bi bi-gear"></i></div>
+                        <span class="service-status"><i></i> Monitoring 24/7</span>
                         <h4>Support &amp; Maintenance</h4>
                         <p>24/7 monitoring, proactive security patching, feature enhancements and optimization to keep your product thriving post-launch.</p>
+                        <ul class="service-features">
+                            <li>24/7 monitoring &amp; SRE</li>
+                            <li>Security &amp; dependency patching</li>
+                            <li>Continuous improvements</li>
+                        </ul>
                         <a href="contact.html" class="service-link">Start a Project <i class="bi bi-arrow-right"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============ STATS ============ -->
+    <section class="stats-section">
+        <div class="container">
+            <div class="row text-center g-4">
+                <div class="col-6 col-lg-3 stat-col">
+                    <div class="stat-box">
+                        <span class="stat-icon"><i class="bi bi-rocket-takeoff"></i></span>
+                        <h3 class="counters" data-target="480">0</h3>
+                        <p>Projects Completed</p>
+                    </div>
+                </div>
+                <div class="col-6 col-lg-3 stat-col">
+                    <div class="stat-box">
+                        <span class="stat-icon"><i class="bi bi-globe-americas"></i></span>
+                        <h3 class="counters" data-target="28">0</h3>
+                        <p>Countries Served</p>
+                    </div>
+                </div>
+                <div class="col-6 col-lg-3 stat-col">
+                    <div class="stat-box">
+                        <span class="stat-icon"><i class="bi bi-person-check"></i></span>
+                        <h3 class="counters" data-target="98">0</h3>
+                        <p>Client Retention / %</p>
+                    </div>
+                </div>
+                <div class="col-6 col-lg-3 stat-col">
+                    <div class="stat-box">
+                        <span class="stat-icon"><i class="bi bi-headset"></i></span>
+                        <h3 class="counters" data-target="247">0</h3>
+                        <p>Support, 24/7</p>
                     </div>
                 </div>
             </div>
@@ -161,6 +237,11 @@
                         <div class="step-icon"><i class="bi bi-search"></i></div>
                         <h5>Discover</h5>
                         <p>We dive deep into your goals, users and market to define a sharp, validated roadmap.</p>
+                        <ul class="step-list">
+                            <li>Stakeholder workshops</li>
+                            <li>User &amp; competitor research</li>
+                            <li>Technical feasibility audit</li>
+                        </ul>
                     </div>
                 </div>
                 <div class="col-md-6 col-lg-3 step-col">
@@ -169,6 +250,11 @@
                         <div class="step-icon"><i class="bi bi-pencil-square"></i></div>
                         <h5>Design</h5>
                         <p>Wireframes become pixel-perfect interfaces, tested and refined with real users.</p>
+                        <ul class="step-list">
+                            <li>Wireframes &amp; prototypes</li>
+                            <li>Design system &amp; branding</li>
+                            <li>Usability testing &amp; iteration</li>
+                        </ul>
                     </div>
                 </div>
                 <div class="col-md-6 col-lg-3 step-col">
@@ -177,6 +263,11 @@
                         <div class="step-icon"><i class="bi bi-code-slash"></i></div>
                         <h5>Develop</h5>
                         <p>Scrum sprints ship working software weekly with continuous QA and code reviews.</p>
+                        <ul class="step-list">
+                            <li>Agile sprint cycles</li>
+                            <li>Automated testing &amp; CI/CD</li>
+                            <li>Security &amp; performance reviews</li>
+                        </ul>
                     </div>
                 </div>
                 <div class="col-md-6 col-lg-3 step-col">
@@ -185,8 +276,41 @@
                         <div class="step-icon"><i class="bi bi-rocket-takeoff"></i></div>
                         <h5>Launch &amp; Scale</h5>
                         <p>We deploy, monitor and optimize — iterating fast to grow your product post-launch.</p>
+                        <ul class="step-list">
+                            <li>Zero-downtime deployment</li>
+                            <li>Analytics &amp; A/B testing</li>
+                            <li>24/7 support &amp; roadmap growth</li>
+                        </ul>
                     </div>
                 </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============ TOOLS & TECH ============ -->
+    <section class="stats-section">
+        <div class="container">
+            <div class="section-head text-center mb-5">
+                <span class="section-tag"><i class="bi bi-tools"></i> Our Stack</span>
+                <h2 class="section-title mx-auto">Technologies We <span class="gradient-text">Excel In</span></h2>
+            </div>
+            <div class="tech-chips justify-content-center">
+                <span>React <i class="bi bi-code-slash"></i></span>
+                <span>Next.js <i class="bi bi-code-slash"></i></span>
+                <span>Node.js <i class="bi bi-code-slash"></i></span>
+                <span>Python <i class="bi bi-code-slash"></i></span>
+                <span>Flutter <i class="bi bi-code-slash"></i></span>
+                <span>Swift <i class="bi bi-code-slash"></i></span>
+                <span>Kotlin <i class="bi bi-code-slash"></i></span>
+                <span>AWS <i class="bi bi-cloud-fill"></i></span>
+                <span>GCP <i class="bi bi-cloud-fill"></i></span>
+                <span>Azure <i class="bi bi-cloud-fill"></i></span>
+                <span>PostgreSQL <i class="bi bi-database-fill"></i></span>
+                <span>MongoDB <i class="bi bi-database-fill"></i></span>
+                <span>Kubernetes <i class="bi bi-box-fill"></i></span>
+                <span>Docker <i class="bi bi-box-fill"></i></span>
+                <span>TensorFlow <i class="bi bi-cpu-fill"></i></span>
+                <span>LLM APIs <i class="bi bi-cpu-fill"></i></span>
             </div>
         </div>
     </section>
@@ -216,16 +340,15 @@
             <div class="row g-5">
                 <div class="col-lg-4">
                     <a class="navbar-brand mb-3" href="index.html">
-                        <span class="brand-mark"><i class="bi bi-hexagon-half"></i></span>
-                        NEX<span>ORA</span>
+                        <img src="images/image.png" alt="Nexora" class="brand-logo">
                     </a>
                     <p class="footer-text">We design and engineer premium digital products that help ambitious companies grow faster, smarter and more securely.</p>
                     <div class="footer-social">
-                        <a href="#"><i class="bi bi-facebook"></i></a>
-                        <a href="#"><i class="bi bi-twitter-x"></i></a>
-                        <a href="#"><i class="bi bi-linkedin"></i></a>
-                        <a href="#"><i class="bi bi-github"></i></a>
-                        <a href="#"><i class="bi bi-dribbble"></i></a>
+                        <a href="404.html"><i class="bi bi-facebook"></i></a>
+                        <a href="404.html"><i class="bi bi-twitter-x"></i></a>
+                        <a href="404.html"><i class="bi bi-linkedin"></i></a>
+                        <a href="404.html"><i class="bi bi-github"></i></a>
+                        <a href="404.html"><i class="bi bi-dribbble"></i></a>
                     </div>
                 </div>
                 <div class="col-6 col-lg-2">
