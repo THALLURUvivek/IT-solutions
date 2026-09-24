@@ -18,10 +18,13 @@
 
     document.body.classList.add('js-on');
 
-    /* Play a from-tween only if at least one target exists on this page. */
+    /* Play a from-tween only if at least one target exists on this page.
+       immediateRender:false stops the hidden (autoAlpha:0) start state from being
+       applied up-front, so items can never be stuck invisible if a ScrollTrigger
+       fails to fire — fixing "empty space" sections in the browser. */
     function playFrom(selector, vars) {
         if (!HAS_GSAP || !document.querySelector(selector)) return null;
-        return gsap.from(selector, vars);
+        return gsap.from(selector, { ...vars, immediateRender: false });
     }
 
     /* ================================================================
@@ -204,9 +207,9 @@
             gsap.timeline({
                 scrollTrigger: { trigger: head, start: 'top 84%', once: true }
             })
-                .from(tag, { ...defaults, y: 30, duration: 0.6 })
-                .from(title, { ...defaults, y: 40, duration: 0.7 }, '-=0.35')
-                .from(lead, { ...defaults, y: 30, duration: 0.7 }, '-=0.4');
+                .from(tag, { ...defaults, y: 30, duration: 0.6, immediateRender: false })
+                .from(title, { ...defaults, y: 40, duration: 0.7, immediateRender: false }, '-=0.35')
+                .from(lead, { ...defaults, y: 30, duration: 0.7, immediateRender: false }, '-=0.4');
         });
 
         /* ----- 4d. About preview / contact headings (outside .section-head) ----- */
@@ -216,6 +219,7 @@
                 x: () => (window.innerWidth >= 992 ? -60 : 0),
                 y: () => (window.innerWidth >= 992 ? 0 : -60),
                 duration: 1, ease: 'power2.out',
+                immediateRender: false,
                 scrollTrigger: { trigger: '.about-visual', start: 'top 82%', once: true }
             });
         }
