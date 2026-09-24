@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Services — Nexora</title>
+    <meta name="description" content="Web development, mobile apps, cloud solutions, AI/ML, UI/UX design and 24/7 support — end-to-end services from Nexora.">
+    <meta name="theme-color" content="#0a0e27">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='20' fill='%236c5ce7'/><text x='50' y='72' font-size='60' text-anchor='middle' fill='white' font-family='Arial' font-weight='bold'>N</text></svg>">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+    <!-- ================= PRELOADER (shared across pages) ================= -->
+    <div id="preloader">
+        <div class="loader">
+            <div class="loader-logo">N</div>
+            <div class="loader-bar"><span></span></div>
+            <p>NEXORA</p>
+        </div>
+    </div>
+
+    <!-- ================= NAVBAR (shared across pages) ================= -->
+    <nav id="mainNav" class="navbar navbar-expand-lg fixed-top">
+        <div class="container">
+            <a class="navbar-brand" href="index.html">
+                <span class="brand-mark"><i class="bi bi-hexagon-half"></i></span>
+                NEX<span>ORA</span>
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#navOffcanvas" aria-controls="navOffcanvas" aria-label="Toggle navigation">
+                <span class="toggler-icon"></span>
+                <span class="toggler-icon"></span>
+                <span class="toggler-icon"></span>
+            </button>
+            <div class="offcanvas offcanvas-end" tabindex="-1" id="navOffcanvas">
+                <div class="offcanvas-header">
+                    <a class="navbar-brand" href="index.html">
+                        <span class="brand-mark"><i class="bi bi-hexagon-half"></i></span>
+                        NEX<span>ORA</span>
+                    </a>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+                </div>
+                <div class="offcanvas-body">
+                    <ul class="navbar-nav mx-auto align-items-lg-center gap-lg-3">
+                        <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+                        <li class="nav-item"><a class="nav-link" href="about.html">About</a></li>
+                        <li class="nav-item"><a class="nav-link active" href="services.html">Services</a></li>
+                        <li class="nav-item"><a class="nav-link" href="work.html">Work</a></li>
+                        <li class="nav-item"><a class="nav-link" href="process.html">Process</a></li>
+                        <li class="nav-item"><a class="nav-link" href="pricing.html">Pricing</a></li>
+                        <li class="nav-item"><a class="nav-link" href="blog.html">Blog</a></li>
+                        <li class="nav-item"><a class="nav-link" href="contact.html">Contact</a></li>
+                    </ul>
+                    <div class="d-flex align-items-center gap-3 mt-3 mt-lg-0">
+                        <a href="contact.html" class="btn btn-gradient btn-sm px-4 py-2">Get Started</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <main>
+
+    <!-- ============ PAGE BANNER ============ -->
+    <section class="page-banner">
+        <div class="page-banner-bg" aria-hidden="true">
+            <div class="orb orb-1"></div>
+            <div class="orb orb-2"></div>
+            <div class="grid-overlay"></div>
+        </div>
+        <div class="container page-banner-content">
+            <span class="page-badge"><i class="bi bi-grid-fill"></i> Our Services</span>
+            <h1>Services Built To <span class="gradient-text">Amplify</span> Growth</h1>
+            <p class="page-sub">End-to-end technology services — from strategy and design to cloud-scale engineering — crafted to turn bold ideas into thriving platforms.</p>
+            <nav class="breadcrumb-nav" aria-label="breadcrumb">
+                <a href="index.html">Home</a>
+                <i class="bi bi-chevron-right"></i>
+                <span>Services</span>
+            </nav>
+        </div>
+    </section>
+
+    <!-- ============ SERVICES ============ -->
+    <section id="services" class="services section-pad">
+        <div class="container">
+            <div class="section-head text-center mb-5">
+                <span class="section-tag"><i class="bi bi-stars"></i> What We Do</span>
+                <h2 class="section-title mx-auto">Six Disciplines, <span class="gradient-text">One Outcome</span></h2>
+                <p class="section-lead mx-auto">Each service is delivered by a dedicated pod of senior specialists using battle-tested modern tooling.</p>
+            </div>
+            <div class="row g-4">
+                <div class="col-md-6 col-lg-4 service-col">
+                    <div class="service-card">
+                        <div class="service-icon"><i class="bi bi-window-desktop"></i></div>
+                        <h4>Web Development</h4>
+                        <p>High-performance websites and progressive web apps engineered for speed, SEO and conversions — from marketing sites to complex SaaS platforms.</p>
+                        <a href="contact.html" class="service-link">Start a Project <i class="bi bi-arrow-right"></i></a>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-4 service-col">
+                    <div class="service-card">
+                        <div class="service-icon"><i class="bi bi-phone"></i></div>
+                        <h4>Mobile Apps</h4>
+                        <p>Native iOS, Android and cross-platform (Flutter / React Native) apps with buttery animations and delightful, accessibility-first UX.</p>
+                        <a href="contact.html" class="service-link">Start a Project <i class="bi bi-arrow-right"></i></a>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-4 service-col">
+                    <div class="service-card">
+                        <div class="service-icon"><i class="bi bi-cloud-arrow-up"></i></div>
+                        <h4>Cloud Solutions</h4>
+                        <p>Scalable cloud migration, DevOps pipelines, infrastructure-as-code and cost optimization on AWS, GCP and Azure.</p>
+                        <a href="contact.html" class="service-link">Start a Project <i class="bi bi-arrow-right"></i></a>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-4 service-col">
+                    <div class="service-card">
+                        <div class="service-icon"><i class="bi bi-cpu"></i></div>
+                        <h4>AI &amp; Machine Learning</h4>
+                        <p>Intelligent automation, predictive analytics, LLM integrations and custom-trained models that unlock hidden value in your data.</p>
+                        <a href="contact.html" class="service-link">Start a Project <i class="bi bi-arrow-right"></i></a>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-4 service-col">
+                    <div class="service-card">
+                        <div class="service-icon"><i class="bi bi-vector-pen"></i></div>
+                        <h4>UI/UX Design</h4>
+                        <p>Human-centered product design — research, wireframes, interactive prototypes and scalable design systems that convert.</p>
+                        <a href="contact.html" class="service-link">Start a Project <i class="bi bi-arrow-right"></i></a>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-4 service-col">
+                    <div class="service-card">
+                        <div class="service-icon"><i class="bi bi-gear"></i></div>
+                        <h4>Support &amp; Maintenance</h4>
+                        <p>24/7 monitoring, proactive security patching, feature enhancements and optimization to keep your product thriving post-launch.</p>
+                        <a href="contact.html" class="service-link">Start a Project <i class="bi bi-arrow-right"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============ PROCESS ============ -->
+    <section class="process section-pad">
+        <div class="container">
+            <div class="section-head text-center mb-5">
+                <span class="section-tag"><i class="bi bi-diagram-3"></i> How We Deliver</span>
+                <h2 class="section-title mx-auto">A Proven Process, <span class="gradient-text">Zero Guesswork</span></h2>
+                <p class="section-lead mx-auto">A transparent journey from discovery to launch — designed to reduce risk and maximize value at every step.</p>
+            </div>
+            <div class="row g-4">
+                <div class="col-md-6 col-lg-3 step-col">
+                    <div class="step-card">
+                        <span class="step-num">01</span>
+                        <div class="step-icon"><i class="bi bi-search"></i></div>
+                        <h5>Discover</h5>
+                        <p>We dive deep into your goals, users and market to define a sharp, validated roadmap.</p>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-3 step-col">
+                    <div class="step-card">
+                        <span class="step-num">02</span>
+                        <div class="step-icon"><i class="bi bi-pencil-square"></i></div>
+                        <h5>Design</h5>
+                        <p>Wireframes become pixel-perfect interfaces, tested and refined with real users.</p>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-3 step-col">
+                    <div class="step-card">
+                        <span class="step-num">03</span>
+                        <div class="step-icon"><i class="bi bi-code-slash"></i></div>
+                        <h5>Develop</h5>
+                        <p>Scrum sprints ship working software weekly with continuous QA and code reviews.</p>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-3 step-col">
+                    <div class="step-card">
+                        <span class="step-num">04</span>
+                        <div class="step-icon"><i class="bi bi-rocket-takeoff"></i></div>
+                        <h5>Launch &amp; Scale</h5>
+                        <p>We deploy, monitor and optimize — iterating fast to grow your product post-launch.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============ CTA BANNER ============ -->
+    <section class="cta-section">
+        <div class="container">
+            <div class="cta-box rounded-4">
+                <div class="row align-items-center g-4">
+                    <div class="col-lg-8">
+                        <h2 class="cta-title">Not sure which service fits your idea?</h2>
+                        <p class="cta-sub">Tell us where you want to go — we'll map the fastest, smartest route.</p>
+                    </div>
+                    <div class="col-lg-4 text-lg-end">
+                        <a href="contact.html" class="btn btn-light btn-lg px-4">Talk to an Expert <i class="bi bi-arrow-right ms-1"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    </main>
+
+    <!-- ================= FOOTER (shared across pages) ================= -->
+    <footer class="footer">
+        <div class="container">
+            <div class="row g-5">
+                <div class="col-lg-4">
+                    <a class="navbar-brand mb-3" href="index.html">
+                        <span class="brand-mark"><i class="bi bi-hexagon-half"></i></span>
+                        NEX<span>ORA</span>
+                    </a>
+                    <p class="footer-text">We design and engineer premium digital products that help ambitious companies grow faster, smarter and more securely.</p>
+                    <div class="footer-social">
+                        <a href="#"><i class="bi bi-facebook"></i></a>
+                        <a href="#"><i class="bi bi-twitter-x"></i></a>
+                        <a href="#"><i class="bi bi-linkedin"></i></a>
+                        <a href="#"><i class="bi bi-github"></i></a>
+                        <a href="#"><i class="bi bi-dribbble"></i></a>
+                    </div>
+                </div>
+                <div class="col-6 col-lg-2">
+                    <h6 class="footer-title">Company</h6>
+                    <ul class="footer-links">
+                        <li><a href="about.html">About Us</a></li>
+                        <li><a href="work.html">Case Studies</a></li>
+                        <li><a href="contact.html">Careers</a></li>
+                        <li><a href="blog.html">Blog</a></li>
+                    </ul>
+                </div>
+                <div class="col-6 col-lg-2">
+                    <h6 class="footer-title">Services</h6>
+                    <ul class="footer-links">
+                        <li><a href="services.html">Web Development</a></li>
+                        <li><a href="services.html">Mobile Apps</a></li>
+                        <li><a href="services.html">Cloud Solutions</a></li>
+                        <li><a href="services.html">AI &amp; ML</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-4">
+                    <h6 class="footer-title">Newsletter</h6>
+                    <p class="footer-text">Monthly insights on product, engineering and growth. No spam.</p>
+                    <form class="newsletter-form" id="newsletterForm">
+                        <input type="email" class="form-control" placeholder="Enter your email" required aria-label="Email">
+                        <button type="submit" class="btn btn-gradient"><i class="bi bi-send-fill"></i></button>
+                    </form>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 Nexora Technologies. All rights reserved.</p>
+                <div>
+                    <a href="#">Privacy Policy</a>
+                    <a href="#">Terms of Service</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Back to top -->
+    <button id="backToTop" class="back-to-top" aria-label="Back to top"><i class="bi bi-arrow-up"></i></button>
+
+    <!-- Toast -->
+    <div class="toast-container position-fixed bottom-0 end-0 p-3">
+        <div id="formToast" class="toast align-items-center text-bg-success border-0" role="alert" aria-live="assertive" aria-atomic="true">
+            <div class="d-flex">
+                <div class="toast-body"><i class="bi bi-check-circle-fill me-2"></i>Message sent! We'll be in touch within 24 hours.</div>
+                <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- GSAP + ScrollTrigger -->
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
+    <!-- Custom JS -->
+    <script src="js/main.js"></script>
+</body>
+</html>
