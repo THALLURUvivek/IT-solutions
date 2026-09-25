@@ -135,7 +135,7 @@
                             </div>
                             <i class="bi bi-chevron-down"></i>
                         </button>
-                        <ul class="dropdown-menu dropdown-menu-end">
+                        <ul class="dropdown-menu dropdown-menu-end d-user-menu">
                             <li><span class="dropdown-header px-2">Signed in as</span></li>
                             <li><button class="dropdown-item" type="button" disabled><i class="bi bi-person-circle"></i> <span class="js-user-email">client@nexora.io</span></button></li>
                             <li><hr class="dropdown-divider"></li>
@@ -789,9 +789,9 @@
 
     <!-- ================= NEW TICKET MODAL ================= -->
     <div class="modal fade" id="newTicketModal" tabindex="-1" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
             <div class="modal-content">
-                <div class="modal-top">
+                <div class="modal-top modal-header">
                     <span class="modal-ico"><i class="bi bi-life-preserver"></i></span>
                     <div>
                         <h5>Raise a New Ticket</h5>
@@ -799,7 +799,7 @@
                     </div>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <form id="ticketForm" novalidate>
+                <form id="ticketForm" class="modal-body" novalidate>
                     <div class="mb-3">
                         <label class="form-label" for="ticketSubject">Subject</label>
                         <input type="text" class="form-control" id="ticketSubject" placeholder="e.g. Payment gateway timeout" required>

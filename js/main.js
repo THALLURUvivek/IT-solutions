@@ -14,7 +14,8 @@
     const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
     const HAS_GSAP = Boolean(window.gsap);
-    if (HAS_GSAP && window.ScrollTrigger) gsap.registerPlugin(ScrollTrigger);
+    const HAS_SCROLL_TRIGGER = Boolean(window.ScrollTrigger);
+    if (HAS_GSAP && HAS_SCROLL_TRIGGER) gsap.registerPlugin(ScrollTrigger);
 
     document.body.classList.add('js-on');
 
@@ -207,9 +208,9 @@
             gsap.timeline({
                 scrollTrigger: { trigger: head, start: 'top 84%', once: true }
             })
-                .from(tag, { ...defaults, y: 30, duration: 0.6, immediateRender: false })
-                .from(title, { ...defaults, y: 40, duration: 0.7, immediateRender: false }, '-=0.35')
-                .from(lead, { ...defaults, y: 30, duration: 0.7, immediateRender: false }, '-=0.4');
+                .from(tag, { ease: 'power3.out', y: 30, duration: 0.6, immediateRender: false })
+                .from(title, { ease: 'power3.out', y: 40, duration: 0.7, immediateRender: false }, '-=0.35')
+                .from(lead, { ease: 'power3.out', y: 30, duration: 0.7, immediateRender: false }, '-=0.4');
         });
 
         /* ----- 4d. About preview / contact headings (outside .section-head) ----- */
@@ -253,7 +254,7 @@
 
         /* ----- 4g. Feature items ----- */
         playFrom('.feature-item', {
-            ...defaults, y: 50, duration: 0.7, stagger: 0.12,
+            ease: 'power3.out', y: 50, duration: 0.7, stagger: 0.12,
             scrollTrigger: { trigger: '.feature-list', start: 'top 85%', once: true }
         });
 
@@ -414,7 +415,7 @@
         function goToSlide(n) {
             idx = Math.max(0, Math.min(slides - 1, n));
             const left = idx * getCardSpan() * perView;
-            if (HAS_GSAP && !reducedMotion) {
+    if (HAS_GSAP && HAS_SCROLL_TRIGGER && !reducedMotion) {
                 gsap.to(strip, { scrollLeft: left, duration: 0.7, ease: 'power2.out' });
             } else {
                 strip.scrollLeft = left;

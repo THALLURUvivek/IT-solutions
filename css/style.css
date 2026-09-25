@@ -29,6 +29,8 @@
     --font-heading: 'Sora', sans-serif;
     --font-body: 'Inter', sans-serif;
 
+    color-scheme: dark;
+
     --shadow: 0 20px 60px rgba(0, 0, 0, 0.45);
     --shadow-glow: 0 10px 40px rgba(108, 92, 231, 0.35);
     --transition: all 0.35s cubic-bezier(0.25, 0.46, 0.45, 0.94);
@@ -600,7 +602,16 @@ img { max-width: 100%; }
 /* ==========================================================================
    ABOUT
    ========================================================================== */
-.about { background: var(--bg); position: relative; }
+.about, .about-preview { background: var(--bg); position: relative; }
+.about-copy { min-width: 0; }
+.about-copy .section-head { max-width: 700px; }
+.about-copy .section-body {
+    color: var(--text-muted);
+    font-size: 1rem;
+    line-height: 1.8;
+    margin-top: 16px;
+}
+.about-copy .feature-item { height: 100%; }
 .about-visual { position: relative; padding-bottom: 70px; padding-right: 40px; }
 .about-img-main {
     width: 82%;
@@ -1287,22 +1298,44 @@ img { max-width: 100%; }
 }
 .form-label { color: #c6cbe6; font-size: 0.9rem; font-weight: 500; }
 .form-control, .form-select {
-    background: rgba(7, 11, 31, 0.6);
+    background-color: rgba(7, 11, 31, 0.6);
     border: 1px solid var(--border);
     color: var(--text);
     border-radius: var(--radius-sm);
-    padding: 12px 16px;
     transition: var(--transition);
 }
+.form-control {
+    width: 100%;
+    min-width: 0;
+    padding: 12px 16px;
+}
+.form-select {
+    width: 100%;
+    min-width: 0;
+    min-height: 48px;
+    padding: 12px 42px 12px 16px;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='%2300d4ff' viewBox='0 0 16 16'%3E%3Cpath fill-rule='evenodd' d='M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 14px center;
+    background-size: 12px 10px;
+    text-overflow: ellipsis;
+    cursor: pointer;
+}
 .form-control:focus, .form-select:focus {
-    background: rgba(7, 11, 31, 0.8);
+    background-color: rgba(7, 11, 31, 0.8);
     border-color: var(--accent-1);
     box-shadow: 0 0 0 4px rgba(108, 92, 231, 0.15);
     color: var(--text);
 }
 .form-control::placeholder { color: var(--text-dim); }
-.form-select option { background: var(--bg-card); color: var(--text); }
-.form-control.is-invalid { border-color: #ff6b6b; }
+.form-select option { background-color: var(--bg-card); color: var(--text); }
+.form-control:disabled, .form-select:disabled {
+    background-color: rgba(7, 11, 31, 0.35);
+    border-color: var(--border-soft);
+    color: var(--text-dim);
+    cursor: not-allowed;
+}
+.form-control.is-invalid, .form-select.is-invalid { border-color: #ff6b6b; }
 
 /* ==========================================================================
    AUTH (sign in / sign up)
@@ -1439,6 +1472,7 @@ img { max-width: 100%; }
 
 .password-field { position: relative; }
 .password-field .form-control { padding-right: 48px; }
+.password-field .form-control::-ms-reveal { display: none; }
 .password-toggle {
     position: absolute;
     top: 50%;
@@ -1476,6 +1510,7 @@ img { max-width: 100%; }
 }
 .role-card {
     position: relative;
+    min-width: 0;
     background: rgba(7, 11, 31, 0.6);
     border: 1px solid var(--border);
     border-radius: var(--radius-sm);
@@ -1487,8 +1522,17 @@ img { max-width: 100%; }
 }
 .role-card input {
     position: absolute;
+    inset: 0;
+    z-index: 1;
+    width: 100%;
+    height: 100%;
+    margin: 0;
     opacity: 0;
-    pointer-events: none;
+    cursor: pointer;
+}
+.role-card:has(input:focus-visible) {
+    outline: 2px solid var(--accent-2);
+    outline-offset: 2px;
 }
 .role-card i {
     display: block;
@@ -1515,12 +1559,12 @@ img { max-width: 100%; }
     transform: translateY(-2px);
 }
 .role-card:hover i { color: var(--accent-2); }
-.role-card.selected {
+.role-card:has(input:checked) {
     background: var(--gradient-soft);
     border-color: var(--accent-1);
     box-shadow: var(--shadow-glow);
 }
-.role-card.selected i { color: var(--accent-2); }
+.role-card:has(input:checked) i { color: var(--accent-2); }
 
 .auth-link { color: var(--accent-2); font-size: 0.9rem; font-weight: 600; }
 .auth-link:hover { color: #fff; }
@@ -1737,6 +1781,10 @@ img { max-width: 100%; }
     .fc-3 { right: 0; }
 
     /* ---- Mobile / tablet navbar (offcanvas drawer) ---- */
+    #mainNav.scrolled {
+        -webkit-backdrop-filter: none;
+        backdrop-filter: none;
+    }
     .offcanvas { background: var(--bg-soft) !important; }
     .offcanvas.offcanvas-end { max-width: min(85vw, 360px); width: 100%; }
     .offcanvas-header { padding-bottom: 10px; }
@@ -1812,6 +1860,9 @@ img { max-width: 100%; }
     .contact-form-wrap { padding: 26px 18px; }
     .auth-form-wrap { padding: 30px 20px; }
     .auth-card { border-radius: 20px; }
+    .form-control, .form-select { font-size: 1rem; }
+    .role-grid { grid-template-columns: 1fr; }
+    .role-card { padding: 12px 14px; }
     .service-card { padding: 28px 22px; }
     .step-card { padding: 28px 22px; }
     .price-card { padding: 32px 22px; }
