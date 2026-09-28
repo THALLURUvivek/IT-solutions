@@ -34,6 +34,36 @@
     --shadow: 0 20px 60px rgba(0, 0, 0, 0.45);
     --shadow-glow: 0 10px 40px rgba(108, 92, 231, 0.35);
     --transition: all 0.35s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+
+    /* ---------- Dropdown system (selects + menus) ----------
+       Elliptical corner pairs fake a continuous "squircle"; every surface is a
+       layered stack of sheen -> fill -> gradient ring. */
+    --dd-radius: 26px;
+    --dd-radius-curve: 26px 26px 26px 26px / 26px 26px 34px 34px;
+    --dd-radius-item: 14px / 17px;
+    --dd-radius-sm: 18px;
+    --dd-radius-sm-curve: 18px / 22px;
+
+    --dd-ring: linear-gradient(135deg, rgba(108, 92, 231, 0.72), rgba(157, 77, 255, 0.32) 46%, rgba(0, 212, 255, 0.6));
+    --dd-ring-hover: linear-gradient(135deg, rgba(157, 77, 255, 0.9), rgba(0, 212, 255, 0.48) 52%, rgba(108, 92, 231, 0.85));
+    --dd-ring-live: linear-gradient(135deg, #9d4dff 0%, #00d4ff 54%, #6c5ce7 100%);
+
+    --dd-fill: linear-gradient(180deg, rgba(20, 26, 63, 0.94), rgba(10, 14, 39, 0.96));
+    --dd-sheen: linear-gradient(180deg, rgba(255, 255, 255, 0.075), rgba(255, 255, 255, 0) 44%);
+
+    --dd-item-rest: linear-gradient(100deg, rgba(255, 255, 255, 0.07), rgba(255, 255, 255, 0) 62%);
+    --dd-item-hover: linear-gradient(100deg, rgba(108, 92, 231, 0.3), rgba(0, 212, 255, 0.14) 68%, rgba(0, 212, 255, 0));
+    --dd-item-shift: 5px;
+
+    --dd-danger: #ff6b8b;
+    --dd-danger-hover: linear-gradient(100deg, rgba(255, 107, 139, 0.26), rgba(255, 107, 139, 0.04) 70%);
+
+    --dd-shadow: 0 28px 70px -22px rgba(0, 0, 0, 0.78), 0 0 44px -14px rgba(108, 92, 231, 0.55);
+    --dd-blur: blur(24px) saturate(150%);
+    --dd-ease: cubic-bezier(0.22, 0.68, 0, 1);
+
+    /* Gradient chevron, encoded so it can live in a custom property */
+    --dd-chevron: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='18' height='18' viewBox='0 0 18 18' fill='none'%3E%3Cdefs%3E%3ClinearGradient id='ddg' x1='3' y1='3' x2='15' y2='15' gradientUnits='userSpaceOnUse'%3E%3Cstop stop-color='%239d4dff'/%3E%3Cstop offset='.55' stop-color='%236c5ce7'/%3E%3Cstop offset='1' stop-color='%2300d4ff'/%3E%3C/linearGradient%3E%3C/defs%3E%3Cpath d='M4 6.75 9 11.75l5-5' stroke='url(%23ddg)' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
 }
 
 /* ---------- Reset & base ---------- */
@@ -1310,32 +1340,238 @@ img { max-width: 100%; }
     padding: 12px 16px;
 }
 .form-select {
+    /* Swapping these re-paints ring + fill + sheen without duplicating the
+       background layers, so every state stays one declaration. */
+    --sel-ring: var(--dd-ring);
+    --sel-fill: var(--dd-fill);
+    --sel-sheen: var(--dd-sheen);
+
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+
     width: 100%;
     min-width: 0;
-    min-height: 48px;
-    padding: 12px 42px 12px 16px;
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='%2300d4ff' viewBox='0 0 16 16'%3E%3Cpath fill-rule='evenodd' d='M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z'/%3E%3C/svg%3E");
+    min-height: 52px;
+    padding: 13px 56px 13px 19px;
+    border: 1px solid transparent;
+    border-radius: var(--dd-radius-sm-curve);
+    background-color: transparent;
+    background-image: var(--dd-chevron), var(--sel-sheen), var(--sel-fill), var(--sel-ring);
+    background-origin: border-box;
+    background-clip: padding-box, padding-box, padding-box, border-box;
     background-repeat: no-repeat;
-    background-position: right 14px center;
-    background-size: 12px 10px;
+    background-size: 17px 17px, 100% 100%, 100% 100%, 100% 100%;
+    background-position: right 18px center, 0 0, 0 0, 0 0;
+    box-shadow: 0 12px 30px -18px rgba(0, 0, 0, 0.85), inset 0 1px 0 rgba(255, 255, 255, 0.04);
+    font-weight: 500;
+    letter-spacing: 0.2px;
     text-overflow: ellipsis;
     cursor: pointer;
+    transition: color 0.3s ease, background-color 0.3s ease,
+                background-image 0.35s ease, border-color 0.3s ease,
+                box-shadow 0.35s var(--dd-ease);
 }
-.form-control:focus, .form-select:focus {
+.form-select:hover {
+    --sel-ring: var(--dd-ring-hover);
+    box-shadow: 0 16px 36px -18px rgba(0, 0, 0, 0.9), 0 0 28px -12px rgba(108, 92, 231, 0.65);
+}
+.form-select:focus {
+    --sel-ring: var(--dd-ring-live);
+    --sel-sheen: linear-gradient(180deg, rgba(255, 255, 255, 0.13), rgba(255, 255, 255, 0) 52%);
+    background-color: transparent;
+    border-color: transparent;
+    color: #fff;
+    box-shadow: 0 0 0 4px rgba(108, 92, 231, 0.22), 0 18px 40px -20px rgba(0, 0, 0, 0.9), 0 0 46px -14px rgba(0, 212, 255, 0.55);
+}
+.form-control:focus {
     background-color: rgba(7, 11, 31, 0.8);
     border-color: var(--accent-1);
     box-shadow: 0 0 0 4px rgba(108, 92, 231, 0.15);
     color: var(--text);
 }
 .form-control::placeholder { color: var(--text-dim); }
-.form-select option { background-color: var(--bg-card); color: var(--text); }
-.form-control:disabled, .form-select:disabled {
+
+/* The option popup is OS-drawn, so colour and rhythm are all we control */
+.form-select option {
+    background-color: #0f1436;
+    color: var(--text);
+    font-weight: 500;
+    padding: 11px 14px;
+}
+.form-select option:hover { background-color: #1b2258; color: #fff; }
+.form-select option:checked {
+    background-color: #2a2160;
+    color: #fff;
+    font-weight: 600;
+}
+.form-select option:disabled { color: var(--text-dim); }
+.form-control:disabled {
     background-color: rgba(7, 11, 31, 0.35);
     border-color: var(--border-soft);
     color: var(--text-dim);
     cursor: not-allowed;
 }
-.form-control.is-invalid, .form-select.is-invalid { border-color: #ff6b6b; }
+.form-select:disabled {
+    --sel-ring: linear-gradient(135deg, rgba(255, 255, 255, 0.07), rgba(255, 255, 255, 0.02));
+    --sel-fill: linear-gradient(180deg, rgba(16, 20, 48, 0.5), rgba(10, 14, 39, 0.5));
+    --sel-sheen: linear-gradient(180deg, rgba(255, 255, 255, 0.02), rgba(255, 255, 255, 0));
+    background-color: transparent;
+    border-color: transparent;
+    color: var(--text-dim);
+    cursor: not-allowed;
+    box-shadow: none;
+}
+.form-control.is-invalid { border-color: #ff6b6b; }
+.form-select.is-invalid {
+    --sel-ring: linear-gradient(135deg, #ff6b6b 0%, rgba(255, 107, 139, 0.42) 58%, rgba(157, 77, 255, 0.62) 100%);
+    box-shadow: 0 0 0 4px rgba(255, 107, 107, 0.16), 0 0 34px -14px rgba(255, 107, 139, 0.6);
+}
+
+/* ==========================================================================
+   DROPDOWN MENUS
+   Layered glass surface, continuous curves, sliding accent bars.
+   ========================================================================== */
+.dropdown-menu {
+    --dd-ring-state: var(--dd-ring);
+    --dd-item-bg: var(--dd-item-rest);
+
+    border: 1px solid transparent;
+    border-radius: var(--dd-radius-curve);
+    padding: 9px;
+    background-color: transparent;
+    background-image: var(--dd-sheen), var(--dd-fill), var(--dd-ring-state);
+    background-origin: border-box;
+    background-clip: padding-box, padding-box, border-box;
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    backdrop-filter: var(--dd-blur);
+    -webkit-backdrop-filter: var(--dd-blur);
+    box-shadow: var(--dd-shadow);
+    max-width: calc(100vw - 24px);
+    max-height: calc(100vh - 24px);
+    max-height: calc(100dvh - 24px);
+    overflow-x: hidden;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    z-index: 1080;
+    scrollbar-width: thin;
+    scrollbar-color: rgba(157, 77, 255, 0.7) transparent;
+}
+.dropdown-menu::-webkit-scrollbar { width: 8px; height: 8px; }
+.dropdown-menu::-webkit-scrollbar-track { background: transparent; }
+.dropdown-menu::-webkit-scrollbar-thumb {
+    border: 2px solid transparent;
+    border-radius: 999px;
+    background: linear-gradient(180deg, rgba(157, 77, 255, 0.8), rgba(0, 212, 255, 0.6));
+    background-clip: padding-box;
+}
+.dropdown-menu::-webkit-scrollbar-thumb:hover { background: linear-gradient(180deg, #9d4dff, #00d4ff); background-clip: padding-box; }
+
+/* Popper drives placement through the inline `transform`, so the reveal uses
+   the independent `translate` / `scale` properties to avoid fighting it. */
+.dropdown-menu.show {
+    --dd-ring-state: var(--dd-ring-live);
+    animation: ddReveal 0.3s var(--dd-ease) both;
+    transform-origin: top center;
+}
+.dropdown-menu.show.dropdown-menu-end { transform-origin: top right; }
+.dropdown-menu.show.dropdown-menu-start { transform-origin: top left; }
+@keyframes ddReveal {
+    from { opacity: 0; translate: 0 -10px; scale: 0.96; }
+    to { opacity: 1; translate: 0 0; scale: 1; }
+}
+
+.dropdown-menu .dropdown-item {
+    position: relative;
+    min-width: 0;
+    color: #c6cbe6;
+    border-radius: var(--dd-radius-item);
+    padding: 11px 14px 11px 19px;
+    font-size: 0.88rem;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    gap: 11px;
+    background-color: transparent;
+    background-image: var(--dd-item-bg);
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    background-position: 0 0;
+    transition: color 0.28s ease, background-color 0.28s ease,
+                background-image 0.28s ease, translate 0.28s var(--dd-ease);
+}
+.dropdown-menu .dropdown-item::before {
+    content: "";
+    position: absolute;
+    left: 7px;
+    top: 50%;
+    width: 3px;
+    height: 0;
+    border-radius: 999px;
+    opacity: 0;
+    background: linear-gradient(180deg, #9d4dff, #00d4ff);
+    translate: 0 -50%;
+    transition: height 0.32s var(--dd-ease), opacity 0.28s ease;
+}
+.dropdown-menu .dropdown-item:hover,
+.dropdown-menu .dropdown-item:focus-visible {
+    --dd-item-bg: var(--dd-item-hover);
+    background-color: transparent;
+    color: #fff;
+    translate: var(--dd-item-shift) 0;
+}
+.dropdown-menu .dropdown-item:hover::before,
+.dropdown-menu .dropdown-item:focus-visible::before { height: 62%; opacity: 1; }
+.dropdown-menu .dropdown-item i {
+    color: var(--text-dim);
+    font-size: 0.95rem;
+    width: 18px;
+    flex: 0 0 18px;
+    text-align: center;
+    transition: color 0.28s ease, scale 0.32s var(--dd-ease);
+}
+.dropdown-menu .dropdown-item:hover i,
+.dropdown-menu .dropdown-item:focus-visible i { color: var(--accent-2); scale: 1.14; }
+.dropdown-menu .dropdown-item span { min-width: 0; overflow-wrap: anywhere; }
+.dropdown-menu .dropdown-item.disabled,
+.dropdown-menu .dropdown-item:disabled {
+    --dd-item-bg: none;
+    background-color: transparent;
+    color: var(--text-dim);
+    opacity: 0.75;
+    cursor: default;
+    translate: 0 0;
+}
+.dropdown-menu .dropdown-item.disabled::before,
+.dropdown-menu .dropdown-item:disabled::before { height: 0; opacity: 0; }
+.dropdown-menu .dropdown-item.disabled i { color: var(--text-dim); scale: 1; }
+
+.dropdown-menu .dropdown-item.danger { color: var(--dd-danger); }
+.dropdown-menu .dropdown-item.danger i { color: var(--dd-danger); }
+.dropdown-menu .dropdown-item.danger::before { background: linear-gradient(180deg, #ff6b8b, #ff4f6d); }
+.dropdown-menu .dropdown-item.danger:hover,
+.dropdown-menu .dropdown-item.danger:focus-visible {
+    --dd-item-bg: var(--dd-danger-hover);
+    color: #ff8ba3;
+}
+.dropdown-menu .dropdown-item.danger:hover i { color: #ff8ba3; }
+
+.dropdown-menu .dropdown-header {
+    color: var(--text-dim);
+    font-size: 0.68rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1.6px;
+    padding: 8px 14px;
+}
+.dropdown-menu .dropdown-divider {
+    height: 1px;
+    margin: 7px 10px;
+    border: 0;
+    opacity: 1;
+    background: linear-gradient(90deg, rgba(255, 255, 255, 0), rgba(157, 77, 255, 0.5) 30%, rgba(0, 212, 255, 0.5) 70%, rgba(255, 255, 255, 0));
+}
 
 /* ==========================================================================
    AUTH (sign in / sign up)
@@ -1861,6 +2097,9 @@ img { max-width: 100%; }
     .auth-form-wrap { padding: 30px 20px; }
     .auth-card { border-radius: 20px; }
     .form-control, .form-select { font-size: 1rem; }
+    .form-select { min-height: 50px; padding: 12px 48px 12px 17px; background-position: right 16px center, 0 0, 0 0, 0 0; }
+    .dropdown-menu { border-radius: 22px 22px 22px 22px / 22px 22px 28px 28px; padding: 8px; }
+    .dropdown-menu .dropdown-item { padding: 11px 12px 11px 17px; }
     .role-grid { grid-template-columns: 1fr; }
     .role-card { padding: 12px 14px; }
     .service-card { padding: 28px 22px; }
