@@ -319,32 +319,29 @@
     box-shadow: 0 0 0 3px var(--bg-card), 0 0 12px rgba(255, 107, 139, 0.8);
 }
 
-/* Dropdowns inherit the shared surface system from style.css; the dashboard
-   only re-skins the tokens to sit inside its glass UI. */
+/* Dropdowns inherit the shared curve/colour system from style.css; the
+   dashboard only re-skins the tokens to sit inside its glass UI. */
 .dash-body .dropdown-menu {
-    --dd-fill: linear-gradient(180deg, #1b2358 0%, #0a0e27 100%);
-    --dd-sheen: linear-gradient(180deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0) 46%);
-    --dd-glow: radial-gradient(120% 100% at 0% 0%, rgba(157, 77, 255, 0.3), rgba(157, 77, 255, 0) 64%);
-    --dd-ring: linear-gradient(135deg, rgba(255, 255, 255, 0.2) 0%, rgba(255, 255, 255, 0.06) 50%, rgba(0, 212, 255, 0.4) 100%);
-    --dd-item-hover: rgba(108, 92, 231, 0.36);
-    --dd-item-active: rgba(108, 92, 231, 0.5);
+    --dd-fill: linear-gradient(180deg, rgba(21, 28, 68, 0.92), rgba(9, 13, 35, 0.95));
+    --dd-sheen: linear-gradient(180deg, rgba(255, 255, 255, 0.095), rgba(255, 255, 255, 0) 46%);
+    --dd-radius-curve: 24px 24px 24px 24px / 24px 24px 31px 31px;
+    --dd-radius-item: 13px / 16px;
+    --dd-item-hover: linear-gradient(100deg, rgba(108, 92, 231, 0.34), rgba(0, 212, 255, 0.16) 68%, rgba(0, 212, 255, 0));
     --dd-blur: blur(26px) saturate(160%);
     --dd-shadow: 0 30px 74px -22px rgba(0, 0, 0, 0.8), 0 0 48px -14px rgba(108, 92, 231, 0.6);
-    /* Set the token rather than `padding` — a shorthand here outranks
-       style.css's phone sheet and would drop its safe-area inset */
-    --dd-menu-pad: 8px;
+    padding: 8px;
 }
-/* Selects inside dashboard modals pick up the same glass fill. */
-.dash-body .xsel-trigger,
+/* Selects inside dashboard modals pick up the same glass fill. Ring values
+   must stay gradients — a bare colour is not a valid background-image layer
+   and would void the entire stack. */
 .dash-body .form-select {
-    --dd-fill: linear-gradient(180deg, #1b2358 0%, #0a0e27 100%);
-    --dd-glow: radial-gradient(120% 100% at 0% 0%, rgba(157, 77, 255, 0.24), rgba(157, 77, 255, 0) 64%);
-    --dd-ring: linear-gradient(135deg, rgba(255, 255, 255, 0.22) 0%, rgba(255, 255, 255, 0.07) 52%, rgba(0, 212, 255, 0.42) 100%);
-    --dd-radius-select: 26px / 21px;
+    --sel-fill: linear-gradient(180deg, rgba(21, 28, 68, 0.92), rgba(9, 13, 35, 0.95));
+    --sel-sheen: linear-gradient(180deg, rgba(255, 255, 255, 0.085), rgba(255, 255, 255, 0) 46%);
+    --sel-ring: linear-gradient(135deg, rgba(255, 255, 255, 0.16), rgba(255, 255, 255, 0.05) 54%, rgba(0, 212, 255, 0.18));
+    --dd-radius-sm-curve: 17px / 21px;
 }
-.dash-body .xsel-trigger:hover,
 .dash-body .form-select:hover {
-    --dd-ring-hover: linear-gradient(135deg, rgba(108, 92, 231, 0.85) 0%, rgba(0, 212, 255, 0.45) 50%, rgba(157, 77, 255, 0.8) 100%);
+    --sel-ring: linear-gradient(135deg, rgba(108, 92, 231, 0.62), rgba(0, 212, 255, 0.3) 54%, rgba(157, 77, 255, 0.55));
 }
 
 .d-notif-list {
@@ -361,8 +358,13 @@
     gap: 12px;
     padding: 11px 12px 11px 16px;
     border-radius: var(--dd-radius-item);
-    background-color: var(--dd-item-rest);
-    transition: color 0.28s ease, background-color 0.28s ease, translate 0.28s var(--dd-ease);
+    background-color: transparent;
+    background-image: var(--dd-item-rest);
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    background-position: 0 0;
+    transition: color 0.28s ease, background-color 0.28s ease,
+                background-image 0.28s ease, translate 0.28s var(--dd-ease);
 }
 .d-notif-item::before {
     content: "";
@@ -373,13 +375,13 @@
     height: 0;
     border-radius: 999px;
     opacity: 0;
-    background: var(--dd-rail);
+    background: linear-gradient(180deg, #9d4dff, #00d4ff);
     translate: 0 -50%;
     transition: height 0.32s var(--dd-ease), opacity 0.28s ease;
 }
-.d-notif-item:hover { background-color: var(--dd-item-hover); translate: var(--dd-item-shift) 0; }
+.d-notif-item:hover { background-color: transparent; background-image: var(--dd-item-hover); translate: var(--dd-item-shift) 0; }
 .d-notif-item:hover::before { height: 62%; opacity: 1; }
-.d-notif-item .notif-ico { flex: 0 0 36px; width: 36px; height: 36px; border-radius: 11px; display: grid; place-items: center; font-size: 0.95rem; }
+.d-notif-item .notif-ico { flex: 0 0 36px; width: 36px; height: 36px; border-radius: 12px / 14px; display: grid; place-items: center; font-size: 0.95rem; }
 .d-notif-item > div { min-width: 0; }
 .d-notif-item .n-cyan { background: rgba(0, 212, 255, 0.14); color: var(--accent-2); }
 .d-notif-item .n-green { background: rgba(45, 212, 167, 0.14); color: #2dd4a7; }
@@ -938,48 +940,6 @@ a.info-card:hover { text-decoration: none; color: var(--text); transform: transl
     .dash-sidebar.collapsed .d-nav-link { justify-content: flex-start; padding: 12px 13px; }
     .dash-sidebar.collapsed .d-nav-link i { width: 22px; }
     .dash-sidebar.collapsed .d-user { justify-content: flex-start; padding: 16px 18px; }
-
-    /* style.css drops the menu blur on small screens, but this file's
-       .dash-body .dropdown-menu rule is more specific and would win the
-       tokens straight back, so the swap is restated here. */
-    .dash-body .dropdown-menu {
-        --dd-blur: none;
-        --dd-fill: linear-gradient(180deg, #141a45, #0a0e27);
-    }
-}
-
-/* Phones: the menu becomes a bottom sheet pinned to the viewport. */
-@media (max-width: 767.98px) {
-    /* backdrop-filter — like transform and filter — makes its element the
-       containing block for fixed-position descendants. The topbar is sticky
-       and the sidebar is a fixed drawer, so leaving their blur in place would
-       pin the sheet to the topbar instead of the screen. Swap the blur for
-       solid surfaces at this size; it is also far cheaper to paint. */
-    .d-topbar {
-        backdrop-filter: none;
-        -webkit-backdrop-filter: none;
-        background: var(--bg);
-    }
-    .dash-sidebar {
-        backdrop-filter: none;
-        -webkit-backdrop-filter: none;
-    }
-
-    /* The sheet is thumb-operated, so rows get the shared touch floor and a
-       slightly smaller icon chip to keep long entries on two lines at most */
-    .d-notif-item {
-        min-height: var(--dd-row-min);
-        padding: 12px 14px 12px 18px;
-    }
-    .d-notif-item .notif-ico {
-        flex-basis: 32px;
-        width: 32px;
-        height: 32px;
-        border-radius: 9px;
-    }
-    /* The sheet is pinned to the viewport, so the list needs a tighter cap
-       than the anchored menu or it would push the sheet past its own max */
-    .d-notif-list { max-height: min(320px, 50dvh); }
 }
 
 @media (max-width: 575.98px) {

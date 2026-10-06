@@ -36,74 +36,34 @@
     --transition: all 0.35s cubic-bezier(0.25, 0.46, 0.45, 0.94);
 
     /* ---------- Dropdown system (selects + menus) ----------
-       Three ideas run through it:
-         1. Continuous curves. Every radius is an elliptical pair (X / Y), so
-            corners are noticeably softer than a circular border-radius without
-            needing a separate squircle shape per side.
-         2. A gradient border ring, painted as the outermost background-image
-            layer clipped to border-box, with the fill clipped to padding-box
-            on top of it. A pseudo-element would have been tidier, but both
-            surfaces scroll, and an inset:0 pseudo-element would size to the
-            scroll content and ride along with it.
-         3. Layered fill: sheen over glow over a vertical gradient. */
-    --dd-radius: 34px / 26px;
-    --dd-radius-select: 30px / 24px;
-    --dd-radius-item: 18px / 14px;
+       Elliptical corner pairs fake a continuous "squircle"; every surface is a
+       layered stack of sheen -> fill -> gradient ring. */
+    --dd-radius: 26px;
+    --dd-radius-curve: 26px 26px 26px 26px / 26px 26px 34px 34px;
+    --dd-radius-item: 14px / 17px;
+    --dd-radius-sm: 18px;
+    --dd-radius-sm-curve: 18px / 22px;
 
-    /* Layered fill */
-    --dd-fill: linear-gradient(180deg, #171e4d 0%, #0a0e27 100%);
-    --dd-sheen: linear-gradient(180deg, rgba(255, 255, 255, 0.09), rgba(255, 255, 255, 0) 44%);
-    --dd-glow: radial-gradient(120% 100% at 0% 0%, rgba(108, 92, 231, 0.28), rgba(108, 92, 231, 0) 62%);
-    --dd-blur: blur(24px) saturate(150%);
+    --dd-ring: linear-gradient(135deg, rgba(108, 92, 231, 0.72), rgba(157, 77, 255, 0.32) 46%, rgba(0, 212, 255, 0.6));
+    --dd-ring-hover: linear-gradient(135deg, rgba(157, 77, 255, 0.9), rgba(0, 212, 255, 0.48) 52%, rgba(108, 92, 231, 0.85));
+    --dd-ring-live: linear-gradient(135deg, #9d4dff 0%, #00d4ff 54%, #6c5ce7 100%);
 
-    /* Ring. The live ring is a conic gradient driven by --dd-spin so the open
-       control can rotate its border. @property registration is what makes
-       that angle interpolable; without it the ring still draws, it just
-       stops spinning. */
-    --dd-ring: linear-gradient(135deg, rgba(108, 92, 231, 0.9) 0%, rgba(157, 77, 255, 0.34) 46%, rgba(0, 212, 255, 0.8) 100%);
-    --dd-ring-hover: linear-gradient(135deg, rgba(157, 77, 255, 0.95) 0%, rgba(0, 212, 255, 0.5) 50%, rgba(108, 92, 231, 0.95) 100%);
-    --dd-ring-live: conic-gradient(from var(--dd-spin), #9d4dff, #00d4ff, #6c5ce7, #b14dff, #9d4dff);
-    --dd-ring-warn: linear-gradient(135deg, #ff6b6b 0%, rgba(255, 107, 139, 0.45) 55%, rgba(157, 77, 255, 0.7) 100%);
+    --dd-fill: linear-gradient(180deg, rgba(20, 26, 63, 0.94), rgba(10, 14, 39, 0.96));
+    --dd-sheen: linear-gradient(180deg, rgba(255, 255, 255, 0.075), rgba(255, 255, 255, 0) 44%);
 
-    --dd-shadow: 0 10px 30px -18px rgba(0, 0, 0, 0.9);
-    --dd-shadow-open: 0 30px 74px -22px rgba(0, 0, 0, 0.82), 0 0 52px -16px rgba(108, 92, 231, 0.6);
-    --dd-focus: 0 0 0 3px rgba(108, 92, 231, 0.34), 0 0 0 6px rgba(157, 77, 255, 0.16);
-    --dd-ease: cubic-bezier(0.22, 0.68, 0, 1);
-
-    /* Rows */
-    --dd-item-rest: rgba(255, 255, 255, 0.045);
-    --dd-item-hover: rgba(108, 92, 231, 0.3);
-    --dd-item-active: rgba(108, 92, 231, 0.44);
-    --dd-item-shift: 4px;
-    --dd-rail: linear-gradient(180deg, #9d4dff, #00d4ff);
-    --dd-check: #00d4ff;
+    --dd-item-rest: linear-gradient(100deg, rgba(255, 255, 255, 0.07), rgba(255, 255, 255, 0) 62%);
+    --dd-item-hover: linear-gradient(100deg, rgba(108, 92, 231, 0.3), rgba(0, 212, 255, 0.14) 68%, rgba(0, 212, 255, 0));
+    --dd-item-shift: 5px;
 
     --dd-danger: #ff6b8b;
-    --dd-danger-hover: rgba(255, 79, 109, 0.24);
-    --dd-danger-rail: linear-gradient(180deg, #ff6b8b, #ff4f6d);
+    --dd-danger-hover: linear-gradient(100deg, rgba(255, 107, 139, 0.26), rgba(255, 107, 139, 0.04) 70%);
 
-    /* Rhythm. Menus, rows and sheets all read these so a breakpoint only has
-       to restate one token instead of the whole rule. */
-    --dd-menu-pad: 8px;
-    --dd-row-min: 44px;
+    --dd-shadow: 0 28px 70px -22px rgba(0, 0, 0, 0.78), 0 0 44px -14px rgba(108, 92, 231, 0.55);
+    --dd-blur: blur(24px) saturate(150%);
+    --dd-ease: cubic-bezier(0.22, 0.68, 0, 1);
 
-    /* Bottom-sheet geometry. env() keeps the list clear of the home indicator. */
-    --dd-sheet-radius: 32px 32px 0 0 / 26px 26px 0 0;
-    --dd-sheet-pad-b: max(16px, env(safe-area-inset-bottom));
-    --dd-scrim: rgba(4, 7, 22, 0.66);
-    --dd-z-scrim: 1070;
-    --dd-z-panel: 1080;
-
-    /* Solid accent caret, encoded so it can live in a custom property */
-    --dd-caret: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16' fill='none'%3E%3Cpath d='M4 6.25 8 10.25l4-4' stroke='%2300d4ff' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
-}
-
-/* Registered so --dd-spin can be animated: an unregistered custom property
-   is just a token, and conic-gradient(from <token>) would jump, not turn. */
-@property --dd-spin {
-    syntax: "<angle>";
-    initial-value: 0deg;
-    inherits: false;
+    /* Gradient chevron, encoded so it can live in a custom property */
+    --dd-chevron: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='18' height='18' viewBox='0 0 18 18' fill='none'%3E%3Cdefs%3E%3ClinearGradient id='ddg' x1='3' y1='3' x2='15' y2='15' gradientUnits='userSpaceOnUse'%3E%3Cstop stop-color='%239d4dff'/%3E%3Cstop offset='.55' stop-color='%236c5ce7'/%3E%3Cstop offset='1' stop-color='%2300d4ff'/%3E%3C/linearGradient%3E%3C/defs%3E%3Cpath d='M4 6.75 9 11.75l5-5' stroke='url(%23ddg)' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
 }
 
 /* ---------- Reset & base ---------- */
@@ -1379,12 +1339,13 @@ img { max-width: 100%; }
     min-width: 0;
     padding: 12px 16px;
 }
-/* Native <select> — the no-JS fallback.
-   Once select.js enhances a control it hides this and renders .xsel instead,
-   so this block only has to look good, not behave. The gradient ring is drawn
-   with the background-clip stack because a bare <select> cannot host the
-   pseudo-element the custom control uses. */
 .form-select {
+    /* Swapping these re-paints ring + fill + sheen without duplicating the
+       background layers, so every state stays one declaration. */
+    --sel-ring: var(--dd-ring);
+    --sel-fill: var(--dd-fill);
+    --sel-sheen: var(--dd-sheen);
+
     -webkit-appearance: none;
     -moz-appearance: none;
     appearance: none;
@@ -1392,36 +1353,36 @@ img { max-width: 100%; }
     width: 100%;
     min-width: 0;
     min-height: 52px;
-    padding: 13px 48px 13px 20px;
+    padding: 13px 56px 13px 19px;
     border: 1px solid transparent;
-    border-radius: var(--dd-radius-select);
-    background-color: #0a0e27;
-    background-image: var(--dd-caret), var(--dd-sheen), var(--dd-fill), var(--dd-ring);
+    border-radius: var(--dd-radius-sm-curve);
+    background-color: transparent;
+    background-image: var(--dd-chevron), var(--sel-sheen), var(--sel-fill), var(--sel-ring);
     background-origin: border-box;
     background-clip: padding-box, padding-box, padding-box, border-box;
     background-repeat: no-repeat;
-    background-size: 16px 16px, 100% 100%, 100% 100%, 100% 100%;
+    background-size: 17px 17px, 100% 100%, 100% 100%, 100% 100%;
     background-position: right 18px center, 0 0, 0 0, 0 0;
-    color: var(--text);
+    box-shadow: 0 12px 30px -18px rgba(0, 0, 0, 0.85), inset 0 1px 0 rgba(255, 255, 255, 0.04);
     font-weight: 500;
     letter-spacing: 0.2px;
     text-overflow: ellipsis;
-    /* Ellipsis on a <select> only engages once the label is held on one line */
-    white-space: nowrap;
     cursor: pointer;
-    box-shadow: var(--dd-shadow);
     transition: color 0.3s ease, background-color 0.3s ease,
-                background-image 0.4s ease, box-shadow 0.35s var(--dd-ease);
+                background-image 0.35s ease, border-color 0.3s ease,
+                box-shadow 0.35s var(--dd-ease);
 }
 .form-select:hover {
-    background-image: var(--dd-caret), var(--dd-sheen), var(--dd-fill), var(--dd-ring-hover);
-    box-shadow: 0 14px 34px -18px rgba(0, 0, 0, 0.95), 0 0 30px -14px rgba(157, 77, 255, 0.6);
+    --sel-ring: var(--dd-ring-hover);
+    box-shadow: 0 16px 36px -18px rgba(0, 0, 0, 0.9), 0 0 28px -12px rgba(108, 92, 231, 0.65);
 }
 .form-select:focus {
-    background-image: var(--dd-caret), var(--dd-sheen), var(--dd-fill), var(--dd-ring-hover);
+    --sel-ring: var(--dd-ring-live);
+    --sel-sheen: linear-gradient(180deg, rgba(255, 255, 255, 0.13), rgba(255, 255, 255, 0) 52%);
+    background-color: transparent;
+    border-color: transparent;
     color: #fff;
-    box-shadow: var(--dd-focus), 0 16px 38px -20px rgba(0, 0, 0, 0.95);
-    outline: none;
+    box-shadow: 0 0 0 4px rgba(108, 92, 231, 0.22), 0 18px 40px -20px rgba(0, 0, 0, 0.9), 0 0 46px -14px rgba(0, 212, 255, 0.55);
 }
 .form-control:focus {
     background-color: rgba(7, 11, 31, 0.8);
@@ -1431,38 +1392,20 @@ img { max-width: 100%; }
 }
 .form-control::placeholder { color: var(--text-dim); }
 
-/* The option popup is OS-drawn, so colour and rhythm are all we control.
-   Chrome/Edge honour this on Windows; the mobile pickers ignore it entirely,
-   which is why the closed control carries all of the visual weight. */
+/* The option popup is OS-drawn, so colour and rhythm are all we control */
 .form-select option {
-    background-color: #10163c;
+    background-color: #0f1436;
     color: var(--text);
     font-weight: 500;
     padding: 11px 14px;
 }
-.form-select option:hover,
-.form-select option:focus { background-color: #1d2560; color: #fff; }
+.form-select option:hover { background-color: #1b2258; color: #fff; }
 .form-select option:checked {
-    background: linear-gradient(90deg, #241d55, #1d2560);
+    background-color: #2a2160;
     color: #fff;
     font-weight: 600;
 }
-.form-select option:disabled { background-color: #080c26; color: var(--text-dim); }
-.form-select optgroup {
-    background-color: #080c26;
-    color: var(--accent-2);
-    font-size: 0.74rem;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 1.4px;
-    padding: 9px 14px;
-}
-.form-select optgroup option {
-    background-color: #10163c;
-    font-size: 0.95rem;
-    letter-spacing: normal;
-    text-transform: none;
-}
+.form-select option:disabled { color: var(--text-dim); }
 .form-control:disabled {
     background-color: rgba(7, 11, 31, 0.35);
     border-color: var(--border-soft);
@@ -1470,33 +1413,34 @@ img { max-width: 100%; }
     cursor: not-allowed;
 }
 .form-select:disabled {
-    background-image: none;
-    border-color: var(--border-soft);
-    background-color: rgba(16, 20, 48, 0.5);
+    --sel-ring: linear-gradient(135deg, rgba(255, 255, 255, 0.07), rgba(255, 255, 255, 0.02));
+    --sel-fill: linear-gradient(180deg, rgba(16, 20, 48, 0.5), rgba(10, 14, 39, 0.5));
+    --sel-sheen: linear-gradient(180deg, rgba(255, 255, 255, 0.02), rgba(255, 255, 255, 0));
+    background-color: transparent;
+    border-color: transparent;
     color: var(--text-dim);
     cursor: not-allowed;
     box-shadow: none;
 }
 .form-control.is-invalid { border-color: #ff6b6b; }
 .form-select.is-invalid {
-    background-image: var(--dd-caret), var(--dd-sheen), var(--dd-fill), var(--dd-ring-warn);
-    box-shadow: 0 0 0 3px rgba(255, 107, 107, 0.16), 0 0 34px -16px rgba(255, 107, 139, 0.6);
+    --sel-ring: linear-gradient(135deg, #ff6b6b 0%, rgba(255, 107, 139, 0.42) 58%, rgba(157, 77, 255, 0.62) 100%);
+    box-shadow: 0 0 0 4px rgba(255, 107, 107, 0.16), 0 0 34px -14px rgba(255, 107, 139, 0.6);
 }
 
 /* ==========================================================================
-   DROPDOWN MENUS (Bootstrap)
-   Same surface recipe as the custom select: gradient ring on the outside,
-   glow + fill + sheen inside, elliptical radii for continuous curves.
-   The ring is a background-image layer rather than a pseudo-element because
-   this element scrolls — an inset:0 pseudo would size to the scroll content
-   and ride along with it.
+   DROPDOWN MENUS
+   Layered glass surface, continuous curves, sliding accent bars.
    ========================================================================== */
 .dropdown-menu {
+    --dd-ring-state: var(--dd-ring);
+    --dd-item-bg: var(--dd-item-rest);
+
     border: 1px solid transparent;
-    border-radius: var(--dd-radius);
-    padding: var(--dd-menu-pad);
-    background-color: #0a0e27;
-    background-image: var(--dd-glow), var(--dd-fill), var(--dd-ring);
+    border-radius: var(--dd-radius-curve);
+    padding: 9px;
+    background-color: transparent;
+    background-image: var(--dd-sheen), var(--dd-fill), var(--dd-ring-state);
     background-origin: border-box;
     background-clip: padding-box, padding-box, border-box;
     background-repeat: no-repeat;
@@ -1510,7 +1454,7 @@ img { max-width: 100%; }
     overflow-x: hidden;
     overflow-y: auto;
     overscroll-behavior: contain;
-    z-index: var(--dd-z-panel);
+    z-index: 1080;
     scrollbar-width: thin;
     scrollbar-color: rgba(157, 77, 255, 0.7) transparent;
 }
@@ -1527,11 +1471,9 @@ img { max-width: 100%; }
 /* Popper drives placement through the inline `transform`, so the reveal uses
    the independent `translate` / `scale` properties to avoid fighting it. */
 .dropdown-menu.show {
+    --dd-ring-state: var(--dd-ring-live);
+    animation: ddReveal 0.3s var(--dd-ease) both;
     transform-origin: top center;
-    /* Open state = the live (rotating) ring, plus more lift. */
-    background-image: var(--dd-glow), var(--dd-fill), var(--dd-ring-live);
-    animation: ddReveal 0.3s var(--dd-ease) both, ddSpin 6s linear infinite;
-    box-shadow: var(--dd-shadow-open);
 }
 .dropdown-menu.show.dropdown-menu-end { transform-origin: top right; }
 .dropdown-menu.show.dropdown-menu-start { transform-origin: top left; }
@@ -1543,9 +1485,6 @@ img { max-width: 100%; }
 .dropdown-menu .dropdown-item {
     position: relative;
     min-width: 0;
-    /* Floor every row at a comfortable tap height without forcing tall rows
-       on the desktop menu, where the text sets the height anyway */
-    min-height: var(--dd-row-min);
     color: #c6cbe6;
     border-radius: var(--dd-radius-item);
     padding: 11px 14px 11px 19px;
@@ -1554,8 +1493,13 @@ img { max-width: 100%; }
     display: flex;
     align-items: center;
     gap: 11px;
-    background-color: var(--dd-item-rest);
-    transition: color 0.28s ease, background-color 0.28s ease, translate 0.28s var(--dd-ease);
+    background-color: transparent;
+    background-image: var(--dd-item-bg);
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    background-position: 0 0;
+    transition: color 0.28s ease, background-color 0.28s ease,
+                background-image 0.28s ease, translate 0.28s var(--dd-ease);
 }
 .dropdown-menu .dropdown-item::before {
     content: "";
@@ -1566,21 +1510,19 @@ img { max-width: 100%; }
     height: 0;
     border-radius: 999px;
     opacity: 0;
-    background: var(--dd-rail);
+    background: linear-gradient(180deg, #9d4dff, #00d4ff);
     translate: 0 -50%;
     transition: height 0.32s var(--dd-ease), opacity 0.28s ease;
 }
 .dropdown-menu .dropdown-item:hover,
 .dropdown-menu .dropdown-item:focus-visible {
-    background-color: var(--dd-item-hover);
+    --dd-item-bg: var(--dd-item-hover);
+    background-color: transparent;
     color: #fff;
     translate: var(--dd-item-shift) 0;
 }
 .dropdown-menu .dropdown-item:hover::before,
 .dropdown-menu .dropdown-item:focus-visible::before { height: 62%; opacity: 1; }
-/* Keyboard focus gets an explicit ring — a background shift alone is easy to
-   miss once the sheet is already tinted and dimmed by the scrim */
-.dropdown-menu .dropdown-item:focus-visible { box-shadow: var(--dd-focus); }
 .dropdown-menu .dropdown-item i {
     color: var(--text-dim);
     font-size: 0.95rem;
@@ -1594,6 +1536,7 @@ img { max-width: 100%; }
 .dropdown-menu .dropdown-item span { min-width: 0; overflow-wrap: anywhere; }
 .dropdown-menu .dropdown-item.disabled,
 .dropdown-menu .dropdown-item:disabled {
+    --dd-item-bg: none;
     background-color: transparent;
     color: var(--text-dim);
     opacity: 0.75;
@@ -1606,10 +1549,10 @@ img { max-width: 100%; }
 
 .dropdown-menu .dropdown-item.danger { color: var(--dd-danger); }
 .dropdown-menu .dropdown-item.danger i { color: var(--dd-danger); }
-.dropdown-menu .dropdown-item.danger::before { background: var(--dd-danger-rail); }
+.dropdown-menu .dropdown-item.danger::before { background: linear-gradient(180deg, #ff6b8b, #ff4f6d); }
 .dropdown-menu .dropdown-item.danger:hover,
 .dropdown-menu .dropdown-item.danger:focus-visible {
-    background-color: var(--dd-danger-hover);
+    --dd-item-bg: var(--dd-danger-hover);
     color: #ff8ba3;
 }
 .dropdown-menu .dropdown-item.danger:hover i { color: #ff8ba3; }
@@ -1628,439 +1571,6 @@ img { max-width: 100%; }
     border: 0;
     opacity: 1;
     background: linear-gradient(90deg, rgba(255, 255, 255, 0), rgba(157, 77, 255, 0.5) 30%, rgba(0, 212, 255, 0.5) 70%, rgba(255, 255, 255, 0));
-}
-
-/* ==========================================================================
-   CUSTOM SELECT (.xsel)
-   Built by js/select.js. The native <select> stays in the DOM as the value
-   source of truth; this is presentation only.
-   ========================================================================== */
-.xsel { position: relative; display: block; width: 100%; }
-
-/* Hidden only once the custom UI exists, so a JS failure leaves a working
-   native control rather than an invisible one. */
-.xsel-ready > .xsel-native {
-    position: absolute !important;
-    width: 1px; height: 1px;
-    margin: -1px; padding: 0;
-    overflow: hidden;
-    clip: rect(0 0 0 0);
-    clip-path: inset(50%);
-    white-space: nowrap;
-    border: 0;
-}
-
-.xsel-trigger {
-    position: relative;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 12px;
-    width: 100%;
-    min-height: 52px;
-    padding: 13px 20px 13px 20px;
-    border: 1px solid transparent;
-    border-radius: var(--dd-radius-select);
-    background-color: #0a0e27;
-    background-image: var(--dd-sheen), var(--dd-glow), var(--dd-fill), var(--dd-ring);
-    background-origin: border-box;
-    background-clip: padding-box, padding-box, padding-box, border-box;
-    background-repeat: no-repeat;
-    background-size: 100% 100%;
-    color: var(--text);
-    font-family: inherit;
-    font-size: 1rem;
-    font-weight: 500;
-    letter-spacing: 0.2px;
-    text-align: left;
-    cursor: pointer;
-    box-shadow: var(--dd-shadow);
-    transition: background-image 0.4s ease, color 0.25s ease,
-                box-shadow 0.35s var(--dd-ease);
-}
-.xsel-trigger:hover {
-    background-image: var(--dd-sheen), var(--dd-glow), var(--dd-fill), var(--dd-ring-hover);
-    box-shadow: 0 14px 34px -18px rgba(0, 0, 0, 0.95), 0 0 30px -14px rgba(157, 77, 255, 0.6);
-}
-.xsel-trigger:focus-visible {
-    box-shadow: var(--dd-focus), 0 16px 38px -20px rgba(0, 0, 0, 0.95);
-    outline: none;
-}
-/* Open: the ring goes live and starts turning. */
-.xsel.is-open .xsel-trigger {
-    background-image: var(--dd-sheen), var(--dd-glow), var(--dd-fill), var(--dd-ring-live);
-    box-shadow: 0 16px 40px -20px rgba(0, 0, 0, 0.95), 0 0 34px -14px rgba(108, 92, 231, 0.65);
-    color: #fff;
-    animation: ddSpin 6s linear infinite;
-}
-.xsel.is-invalid .xsel-trigger {
-    background-image: var(--dd-sheen), var(--dd-fill), var(--dd-ring-warn);
-    box-shadow: 0 0 0 3px rgba(255, 107, 107, 0.16), 0 0 34px -16px rgba(255, 107, 139, 0.6);
-}
-.xsel.is-disabled .xsel-trigger {
-    background-image: none;
-    background-color: rgba(16, 20, 48, 0.5);
-    border-color: var(--border-soft);
-    color: var(--text-dim);
-    cursor: not-allowed;
-    box-shadow: none;
-}
-.xsel.is-placeholder .xsel-trigger { color: var(--text-dim); }
-
-.xsel-value {
-    flex: 1 1 auto;
-    min-width: 0;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-}
-.xsel-caret {
-    flex: 0 0 16px;
-    width: 16px; height: 16px;
-    background: var(--dd-caret) center / contain no-repeat;
-    opacity: 0.9;
-    transition: rotate 0.32s var(--dd-ease), scale 0.32s var(--dd-ease);
-}
-.xsel.is-open .xsel-caret { rotate: 180deg; scale: 1.12; }
-
-/* The listbox. Fixed with JS-computed coords rather than absolute, because
-   dashboard selects live inside a Bootstrap modal whose scroll container
-   would clip an absolutely-positioned panel. */
-.xsel-panel {
-    position: fixed;
-    z-index: var(--dd-z-panel);
-    padding: var(--dd-menu-pad);
-    border: 1px solid transparent;
-    border-radius: var(--dd-radius);
-    background-color: #0a0e27;
-    background-image: var(--dd-glow), var(--dd-fill), var(--dd-ring);
-    background-origin: border-box;
-    background-clip: padding-box, padding-box, border-box;
-    background-repeat: no-repeat;
-    background-size: 100% 100%;
-    backdrop-filter: var(--dd-blur);
-    -webkit-backdrop-filter: var(--dd-blur);
-    box-shadow: var(--dd-shadow-open);
-    overflow-x: hidden;
-    overflow-y: auto;
-    overscroll-behavior: contain;
-    scrollbar-width: thin;
-    scrollbar-color: rgba(157, 77, 255, 0.7) transparent;
-    opacity: 0;
-    visibility: hidden;
-    scale: 0.97;
-    translate: 0 -8px;
-    transition: opacity 0.24s var(--dd-ease), translate 0.24s var(--dd-ease),
-                scale 0.24s var(--dd-ease), visibility 0.24s;
-}
-/* The panel is portalled to <body> by select.js, so it carries its own
-   .is-open rather than inheriting it from an ancestor .xsel. */
-.xsel-panel.is-open {
-    opacity: 1;
-    visibility: visible;
-    scale: 1;
-    translate: 0 0;
-}
-/* Opening upward mirrors the entrance so it never grows away from the trigger */
-.xsel-panel.is-up { translate: 0 8px; }
-.xsel-panel.is-open.is-up { translate: 0 0; }
-.xsel-panel::-webkit-scrollbar { width: 8px; }
-.xsel-panel::-webkit-scrollbar-track { background: transparent; }
-.xsel-panel::-webkit-scrollbar-thumb {
-    border: 2px solid transparent;
-    border-radius: 999px;
-    background: linear-gradient(180deg, rgba(157, 77, 255, 0.8), rgba(0, 212, 255, 0.6));
-    background-clip: padding-box;
-}
-
-.xsel-group {
-    padding: 9px 14px 5px;
-    color: var(--text-dim);
-    font-size: 0.68rem;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 1.5px;
-}
-
-.xsel-opt {
-    position: relative;
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    min-height: var(--dd-row-min);
-    padding: 11px 14px 11px 12px;
-    border-radius: var(--dd-radius-item);
-    color: #c6cbe6;
-    font-size: 0.9rem;
-    font-weight: 500;
-    cursor: pointer;
-    user-select: none;
-    transition: background-color 0.2s ease, color 0.2s ease, translate 0.2s var(--dd-ease);
-}
-/* Rail: the accent edge that grows in on hover / keyboard-active */
-.xsel-opt::before {
-    content: "";
-    position: absolute;
-    left: 6px; top: 50%;
-    width: 3px; height: 0;
-    border-radius: 999px;
-    background: var(--dd-rail);
-    translate: 0 -50%;
-    transition: height 0.28s var(--dd-ease), opacity 0.2s ease;
-    opacity: 0;
-}
-.xsel-opt.is-active {
-    background-color: var(--dd-item-active);
-    color: #fff;
-    translate: var(--dd-item-shift) 0;
-}
-.xsel-opt.is-active::before { height: 60%; opacity: 1; }
-.xsel-opt.is-selected { color: #fff; font-weight: 600; }
-.xsel-opt.is-selected .xsel-check {
-    opacity: 1;
-    scale: 1;
-}
-.xsel-opt.is-disabled {
-    color: var(--text-dim);
-    opacity: 0.6;
-    cursor: default;
-}
-.xsel-opt.is-disabled::before { height: 0; opacity: 0; }
-
-.xsel-check {
-    flex: 0 0 16px;
-    width: 16px; height: 16px;
-    background: var(--dd-check) center / 14px 14px no-repeat;
-    opacity: 0;
-    scale: 0.4;
-    transition: opacity 0.22s var(--dd-ease), scale 0.28s var(--dd-ease);
-}
-.xsel-text { min-width: 0; overflow-wrap: anywhere; }
-
-/* Staggered entrance — --i is set per option in select.js. */
-@media (prefers-reduced-motion: no-preference) {
-    .xsel-panel.is-open .xsel-opt { animation: ddOptIn 0.3s var(--dd-ease) both; animation-delay: calc(var(--i, 0) * 22ms); }
-}
-@keyframes ddOptIn {
-    from { opacity: 0; translate: 0 6px; }
-    to { opacity: 1; translate: 0 0; }
-}
-/* Rotates the live ring. Depends on the @property registration for --dd-spin;
-   without it the ring simply renders at its initial angle. */
-@keyframes ddSpin { to { --dd-spin: 360deg; } }
-
-/* Scrim for the phone sheet. Lives on <body> so the fixed panel is never
-   re-anchored by an ancestor containing block.
-   display:none by default and only switched on in the phone tier: on desktop
-   the panel is anchored to its trigger, so a full-viewport overlay would do
-   nothing but swallow every click on the page. */
-.xsel-scrim {
-    position: fixed;
-    inset: 0;
-    z-index: var(--dd-z-scrim);
-    display: none;
-    background: var(--dd-scrim);
-    opacity: 0;
-    pointer-events: none;
-    transition: opacity 0.3s ease;
-}
-.xsel-scrim.is-on { opacity: 1; pointer-events: auto; }
-
-/* Windows High Contrast / forced-colors strips background layers, which would
-   leave these surfaces with no visible edge at all. Hand the edges back to
-   the OS so the control and menu stay legible. */
-@media (forced-colors: active) {
-    .form-select,
-    .dropdown-menu,
-    .xsel-trigger,
-    .xsel-panel {
-        background-image: none;
-        background-color: Canvas;
-        border: 1px solid CanvasText;
-        color: CanvasText;
-    }
-    .xsel-trigger:focus-visible { outline: 2px solid Highlight; outline-offset: -2px; }
-    .xsel-opt.is-active {
-        background-color: Highlight;
-        color: HighlightText;
-    }
-    .xsel-opt::before { background: Highlight; }
-    .xsel-group { color: GrayText; }
-    .xsel-scrim { background: Canvas; opacity: 0.5; }
-    .form-select:disabled { border-color: GrayText; color: GrayText; }
-    .form-select option { background-color: Canvas; color: CanvasText; }
-    .dropdown-menu .dropdown-item { color: CanvasText; }
-    .dropdown-menu .dropdown-item::before { background: Highlight; }
-    .dropdown-menu .dropdown-item:hover,
-    .dropdown-menu .dropdown-item:focus-visible {
-        background-color: Highlight;
-        color: HighlightText;
-    }
-    .dropdown-menu .dropdown-item:focus-visible { outline: 2px solid Highlight; outline-offset: -2px; }
-    .dropdown-menu .dropdown-header { color: GrayText; }
-    .dropdown-menu .dropdown-divider { background: GrayText; }
-    .dropdown { position: relative; }
-    .dropdown::before { background: Canvas; opacity: 0; }
-    .dropdown:has(> .dropdown-menu.show)::before { opacity: 0.6; }
-}
-
-/* ==========================================================================
-   DROPDOWN RESPONSIVE
-   Four tiers, covering both the Bootstrap menus and the custom select:
-
-     desktop > 1199.98px  the base rules above
-     laptop  <= 1199.98px tighter menu so it cannot crowd its trigger
-     tablet  <= 991.98px  anchored, blur dropped for a flat opaque fill
-     phone   <= 767.98px  bottom sheet, touch rows, solid surfaces
-
-   Every tier is a max-width query, so they are declared widest-first: the
-   last matching rule wins, and phone has to come last or the laptop/tablet
-   rules would override the sheet. Each tier restates only what it changes —
-   usually a single token — so the ladder stays readable.
-
-   The Bootstrap sheet is gated behind @supports selector(:has(*)) because it
-   drives its scrim from the .dropdown wrapper. The custom select does not
-   need that: select.js owns a real scrim element on <body>, so its sheet is
-   unconditional and a plain full-width menu would be a worse fallback.
-   ========================================================================== */
-
-/* Laptop: tighten the menu so it cannot crowd its trigger */
-@media (max-width: 1199.98px) {
-    :root {
-        --dd-menu-pad: 7px;
-        --dd-radius: 30px / 23px;
-        --dd-radius-select: 27px / 22px;
-    }
-    .dropdown-menu .dropdown-item { padding: 10px 12px 10px 17px; }
-    .xsel-opt { padding: 10px 13px 10px 11px; }
-}
-
-/* Tablet: backdrop blur is by far the most expensive paint on these menus and
-   buys very little at this size, so swap it for a flat opaque fill */
-@media (max-width: 991.98px) {
-    :root {
-        --dd-blur: none;
-        --dd-fill: linear-gradient(180deg, #141a45, #0a0e27);
-    }
-    .dropdown-menu,
-    .xsel-panel {
-        max-height: calc(100dvh - 32px);
-        scroll-padding-block: 6px;
-    }
-}
-
-/* ---------- Phone ---------- */
-@media (max-width: 767.98px) {
-    :root {
-        --dd-menu-pad: 10px;
-        --dd-row-min: 50px;
-        --dd-radius-select: 26px / 21px;
-    }
-
-    /* Custom select -> bottom sheet. The panel is position:fixed with
-       JS-computed coords on larger screens, so every axis is forced back to
-       the viewport here. !important is required: those are inline styles. */
-    .xsel-panel {
-        position: fixed !important;
-        inset: auto 0 0 0 !important;
-        top: auto !important;
-        left: 0 !important;
-        right: 0 !important;
-        bottom: 0 !important;
-        width: auto !important;
-        max-width: 100% !important;
-        max-height: min(80dvh, 100dvh - 32px) !important;
-        border-radius: var(--dd-sheet-radius);
-        border-bottom: 0;
-        padding-bottom: var(--dd-sheet-pad-b);
-        transform-origin: bottom center;
-        scale: 1;
-        translate: 0 100%;
-    }
-    .xsel-panel.is-open,
-    .xsel-panel.is-open.is-up { translate: 0 0; }
-
-    /* The trigger stays put; only the list becomes a sheet. */
-    .xsel-trigger { min-height: 56px; font-size: 1.05rem; }
-
-    /* Thumb-operated, so no hover shift and a bigger icon gutter. */
-    .xsel-opt { padding: 14px 16px 14px 13px; font-size: 0.98rem; }
-    .xsel-opt.is-active { translate: 0 0; }
-
-    /* Scrim is phone-only: on desktop the panel is anchored to its trigger
-       and a full-viewport overlay would just swallow every click. */
-    .xsel-scrim { display: block; }
-
-    /* Native <select> fallback: same roomier target, for the case where
-       select.js never ran. */
-    .form-select {
-        min-height: 56px;
-        font-size: 1.05rem;
-    }
-}
-
-@supports selector(:has(*)) {
-    /* Bootstrap menus: same bottom-sheet treatment, still driven from the
-       .dropdown wrapper since Bootstrap owns the open/close state. */
-    @media (max-width: 767.98px) {
-        .dropdown { position: relative; }
-
-        /* The scrim sits on the wrapper rather than the menu: the menu clips
-           its own overflow, and its backdrop-filter would otherwise become
-           the containing block for a fixed-position child. */
-        .dropdown::before {
-            content: "";
-            position: fixed;
-            inset: 0;
-            z-index: var(--dd-z-scrim);
-            background: var(--dd-scrim);
-            opacity: 0;
-            visibility: hidden;
-            pointer-events: none;
-            transition: opacity 0.3s ease, visibility 0.3s ease;
-        }
-        .dropdown:has(> .dropdown-menu.show)::before { opacity: 1; visibility: visible; }
-
-        .dropdown-menu {
-            /* Popper drives placement with inline left/top/transform, so all
-               three are overridden — a pinned sheet has no anchor to track. */
-            position: fixed !important;
-            inset: auto 0 0 0 !important;
-            transform: none !important;
-            margin: 0 !important;
-            width: auto !important;
-            max-width: 100% !important;
-            max-height: min(80dvh, 100dvh - 32px);
-            border-radius: var(--dd-sheet-radius);
-            border-bottom: 0;
-            padding: var(--dd-menu-pad);
-            padding-bottom: var(--dd-sheet-pad-b);
-            z-index: var(--dd-z-panel);
-            overscroll-behavior: contain;
-            /* Slide on the independent `translate` property, never
-               `transform`, so Popper's inline placement is left alone */
-            translate: 0 100%;
-            transition: translate 0.34s var(--dd-ease);
-        }
-        .dropdown-menu.show {
-            animation: none;
-            translate: 0 0;
-            transform-origin: bottom center;
-            box-shadow: var(--dd-shadow);
-        }
-        .dropdown-menu.show.dropdown-menu-end,
-        .dropdown-menu.show.dropdown-menu-start { transform-origin: bottom center; }
-
-        /* Taller rows: the sheet is thumb-operated, not cursor-operated */
-        .dropdown-menu .dropdown-item {
-            min-height: var(--dd-row-min);
-            padding: 13px 16px 13px 20px;
-            translate: 0 0;
-        }
-        .dropdown-menu .dropdown-item:hover { translate: 0 0; }
-        .dropdown-menu .dropdown-item:focus-visible { translate: 0 0; }
-        .dropdown-menu .dropdown-header { padding: 10px 14px; }
-    }
 }
 
 /* ==========================================================================
@@ -2626,9 +2136,10 @@ img { max-width: 100%; }
     .contact-form-wrap { padding: 26px 18px; }
     .auth-form-wrap { padding: 30px 20px; }
     .auth-card { border-radius: 20px; }
-    .form-control { font-size: 1rem; }
-    /* .form-select sizing now lives in the DROPDOWN RESPONSIVE phone tier so
-       its single-layer background-position is not fought over here */
+    .form-control, .form-select { font-size: 1rem; }
+    .form-select { min-height: 50px; padding: 12px 48px 12px 17px; background-position: right 16px center, 0 0, 0 0, 0 0; }
+    .dropdown-menu { border-radius: 22px 22px 22px 22px / 22px 22px 28px 28px; padding: 8px; }
+    .dropdown-menu .dropdown-item { padding: 11px 12px 11px 17px; }
     .role-grid { grid-template-columns: 1fr; }
     .role-card { padding: 12px 14px; }
     .service-card { padding: 28px 22px; }
