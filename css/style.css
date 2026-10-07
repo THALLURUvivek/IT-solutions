@@ -1323,8 +1323,11 @@ img { max-width: 100%; }
     background: var(--bg-card);
     border: 1px solid var(--border-soft);
     border-radius: 22px;
-    padding: 40px;
+    padding: clamp(24px, 5vw, 40px);
     box-shadow: var(--shadow);
+    width: 100%;
+    max-width: 100%;
+    overflow: hidden;
 }
 .form-label { color: #c6cbe6; font-size: 0.9rem; font-weight: 500; }
 .form-control, .form-select {
@@ -1351,9 +1354,10 @@ img { max-width: 100%; }
     appearance: none;
 
     width: 100%;
+    max-width: 100%;
     min-width: 0;
-    min-height: 52px;
-    padding: 13px 56px 13px 19px;
+    min-height: clamp(44px, 5.5vw, 52px);
+    padding: clamp(9px, 2vw, 12px) clamp(40px, 8vw, 56px) clamp(9px, 2vw, 12px) clamp(12px, 3.5vw, 16px);
     border: 1px solid transparent;
     border-radius: var(--dd-radius-sm-curve);
     background-color: transparent;
@@ -1361,12 +1365,19 @@ img { max-width: 100%; }
     background-origin: border-box;
     background-clip: padding-box, padding-box, padding-box, border-box;
     background-repeat: no-repeat;
-    background-size: 17px 17px, 100% 100%, 100% 100%, 100% 100%;
-    background-position: right 18px center, 0 0, 0 0, 0 0;
+    background-size: clamp(14px, 3vw, 16px) clamp(14px, 3vw, 16px), 100% 100%, 100% 100%, 100% 100%;
+    background-position: right clamp(10px, 3vw, 16px) center, 0 0, 0 0, 0 0;
     box-shadow: 0 12px 30px -18px rgba(0, 0, 0, 0.85), inset 0 1px 0 rgba(255, 255, 255, 0.04);
     font-weight: 500;
     letter-spacing: 0.2px;
+    font-size: clamp(0.9rem, 2.2vw, 1rem);
+    line-height: 1.25;
     text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    cursor: pointer;
+    box-sizing: border-box;
+    contain: layout paint;
     cursor: pointer;
     transition: color 0.3s ease, background-color 0.3s ease,
                 background-image 0.35s ease, border-color 0.3s ease,
@@ -1448,9 +1459,11 @@ img { max-width: 100%; }
     backdrop-filter: var(--dd-blur);
     -webkit-backdrop-filter: var(--dd-blur);
     box-shadow: var(--dd-shadow);
-    max-width: calc(100vw - 24px);
-    max-height: calc(100vh - 24px);
-    max-height: calc(100dvh - 24px);
+    width: max-content;
+    min-width: 10rem;
+    max-width: min(420px, calc(100vw - 12px));
+    max-height: min(70vh, 420px);
+    max-height: min(70dvh, 420px);
     overflow-x: hidden;
     overflow-y: auto;
     overscroll-behavior: contain;
@@ -2136,8 +2149,8 @@ img { max-width: 100%; }
     .contact-form-wrap { padding: 26px 18px; }
     .auth-form-wrap { padding: 30px 20px; }
     .auth-card { border-radius: 20px; }
-    .form-control, .form-select { font-size: 1rem; }
-    .form-select { min-height: 50px; padding: 12px 48px 12px 17px; background-position: right 16px center, 0 0, 0 0, 0 0; }
+    .form-control, .form-select { font-size: clamp(0.98rem, 3.2vw, 1rem); width: 100%; max-width: 100%; min-width: 0; }
+    .form-select { min-height: clamp(46px, 11vw, 50px); padding: clamp(10px, 2.8vw, 12px) clamp(44px, 10vw, 48px) clamp(10px, 2.8vw, 12px) clamp(14px, 4vw, 17px); background-position: right clamp(14px, 4vw, 16px) center, 0 0, 0 0, 0 0; background-size: clamp(14px, 3.5vw, 16px) clamp(14px, 3.5vw, 16px), 100% 100%, 100% 100%, 100% 100%; }
     .dropdown-menu { border-radius: 22px 22px 22px 22px / 22px 22px 28px 28px; padding: 8px; }
     .dropdown-menu .dropdown-item { padding: 11px 12px 11px 17px; }
     .role-grid { grid-template-columns: 1fr; }
@@ -2169,4 +2182,67 @@ html { overflow-x: clip; }
         scroll-behavior: auto !important;
     }
     .logos-slide { animation: none; flex-wrap: wrap; justify-content: center; }
+}
+@media (max-width: 420px) {
+    .contact-form-wrap { padding: 16px 10px; border-radius: 16px; }
+    .contact-form-wrap .row.g-4 { --bs-gutter-x: 0.75rem; --bs-gutter-y: 0.75rem; }
+    .form-select,
+    .form-control {
+        width: 100% !important;
+        max-width: calc(100vw - 32px) !important;
+        min-width: 0 !important;
+        box-sizing: border-box;
+        text-overflow: ellipsis;
+        font-size: 0.98rem;
+    }
+    .form-select { padding: 9px 36px 9px 10px; background-position: right 10px center, 0 0, 0 0, 0 0; background-size: 13px 13px, 100% 100%, 100% 100%, 100% 100%; min-height: 44px; }
+}
+
+/* Ensure selects don't overflow in form grids */
+.contact-form-wrap .form-select,
+.contact-form-wrap .form-control {
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
+    box-sizing: border-box;
+    contain: layout;
+}
+
+.form-select:focus-visible { outline: none; }
+.form-select option,
+.form-select optgroup {
+    font-size: clamp(0.92rem, 2.2vw, 1rem);
+    white-space: normal;
+    word-break: break-word;
+}
+
+.contact-form-wrap .col-md-6, .contact-form-wrap .col-12 { max-width: 100%; min-width: 0; }
+.contact-section { overflow-x: clip; }
+
+.contact .container { max-width: 100%; padding-left: clamp(12px, 4vw, 24px); padding-right: clamp(12px, 4vw, 24px); }
+.contact .row { max-width: 100%; margin-left: auto; margin-right: auto; }
+
+.contact-form-wrap { position: relative; min-width: 0; grid-template-columns: 1fr; }
+.contact-form-wrap * { max-width: 100%; min-width: 0; }
+
+#budget.form-select { width: 100% !important; max-width: 100% !important; min-width: 0 !important; display: block; }
+
+@media (max-width: 767.98px) {
+    .contact .col-lg-7,
+    .contact .col-md-6,
+    .contact .col-12,
+    .contact-form-wrap,
+    .contact-form-wrap form,
+    .contact-form-wrap .row {
+        width: 100% !important;
+        max-width: 100% !important;
+        min-width: 0 !important;
+        padding-left: 0 !important;
+        padding-right: 0 !important;
+        margin-left: 0 !important;
+        margin-right: 0 !important;
+        box-sizing: border-box !important;
+    }
+    .contact .container { padding-left: 12px !important; padding-right: 12px !important; }
+    .contact-form-wrap { padding: clamp(18px, 4vw, 22px) !important; }
 }

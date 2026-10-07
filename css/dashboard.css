@@ -339,6 +339,14 @@
     --sel-sheen: linear-gradient(180deg, rgba(255, 255, 255, 0.085), rgba(255, 255, 255, 0) 46%);
     --sel-ring: linear-gradient(135deg, rgba(255, 255, 255, 0.16), rgba(255, 255, 255, 0.05) 54%, rgba(0, 212, 255, 0.18));
     --dd-radius-sm-curve: 17px / 21px;
+    min-height: clamp(42px, 5.2vw, 50px);
+    padding: clamp(9px, 2.1vw, 12px) clamp(42px, 8.5vw, 56px) clamp(9px, 2.1vw, 12px) clamp(13px, 3.8vw, 17px);
+    background-size: clamp(14px, 3vw, 16px) clamp(14px, 3vw, 16px), 100% 100%, 100% 100%, 100% 100%;
+    background-position: right clamp(12px, 3.2vw, 18px) center, 0 0, 0 0, 0 0;
+    font-size: clamp(0.9rem, 2vw, 0.98rem);
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
 }
 .dash-body .form-select:hover {
     --sel-ring: linear-gradient(135deg, rgba(108, 92, 231, 0.62), rgba(0, 212, 255, 0.3) 54%, rgba(157, 77, 255, 0.55));
@@ -350,8 +358,8 @@
     overflow-y: auto;
     overscroll-behavior: contain;
 }
-.d-notif-menu { width: 330px; max-width: calc(100vw - 24px); }
-.d-user-menu { width: min(290px, calc(100vw - 24px)); }
+.d-notif-menu { width: min(330px, calc(100vw - 12px)); max-width: calc(100vw - 12px); }
+.d-user-menu { width: min(290px, calc(100vw - 12px)); max-width: calc(100vw - 12px); }
 .d-notif-item {
     position: relative;
     display: flex;
